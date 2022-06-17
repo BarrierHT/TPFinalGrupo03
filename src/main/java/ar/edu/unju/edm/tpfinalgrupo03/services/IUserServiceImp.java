@@ -1,4 +1,4 @@
-package ar.edu.unju.edm.tpfinalgrupo03.service;
+package ar.edu.unju.edm.tpfinalgrupo03.services;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,19 +9,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ar.edu.unju.edm.tpfinalgrupo03.models.User;
-import ar.edu.unju.edm.tpfinalgrupo03.repository.UserRepository;
+import ar.edu.unju.edm.tpfinalgrupo03.repositories.UserRepository;
 
 @Service
 public class IUserServiceImp implements IUserService {
 
     private static final Log LOGGER = LogFactory.getLog(IUserServiceImp.class);
-    
+
     @Autowired
     UserRepository userRepository;
-    
+
     @Override
     public void saveUser(User incomingUser) {
-        
+
         userRepository.save(incomingUser);
     }
 

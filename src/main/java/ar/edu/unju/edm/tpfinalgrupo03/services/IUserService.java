@@ -1,4 +1,4 @@
-package ar.edu.unju.edm.tpfinalgrupo03.service;
+package ar.edu.unju.edm.tpfinalgrupo03.services;
 
 import java.util.List;
 
@@ -8,9 +8,9 @@ import ar.edu.unju.edm.tpfinalgrupo03.models.User;
 @Service
 public interface IUserService {
 
-    public void saveUser(User user); 
+    public void saveUser(User user);
 
-    public List<User> getUsers(); 
+    public List<User> getUsers();
 
     public void editUser(User user);
 
@@ -18,5 +18,5 @@ public interface IUserService {
 
     public User getUser(Integer id) throws Exception;
 
-    public User getUserByIdCard(Integer idCard) throws Exception; 
+    public User getUserByIdCard(Integer idCard) throws Exception;
 }

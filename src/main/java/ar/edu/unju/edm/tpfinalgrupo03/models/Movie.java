@@ -1,22 +1,32 @@
 package ar.edu.unju.edm.tpfinalgrupo03.models;
 
 import java.time.LocalDate;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 import org.springframework.stereotype.Component;
 
 @Component
-
+@Entity
+@Table
 public class Movie {
-	
-    private Integer id;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
 	private String title;
 	private String description;
 	private LocalDate startingDate;
-    private LocalDate finishingDate;
-    private String movieType;
-    private String room;
-	private String fShowTime;
-    private String sShowTime;
-    private String tShowTime;
+	private LocalDate finishingDate;
+	private String movieType;
+	private String room;
+	private String firstShowTime;
+	private String secondShowTime;
+	private String thirdShowTime;
 	private String cover; // imageURL
 	private Boolean status = true;
 
@@ -24,18 +34,20 @@ public class Movie {
 	}
 
 	public Movie(Integer id, String title, String description, LocalDate startingDate, LocalDate finishingDate,
-			String movieType, String room, String fShowTime, String sShowTime, String tShowTime, String cover, Boolean status) {
+			String movieType, String room, String firstShowTime, String secondShowTime, String thirdShowTime,
+			String cover,
+			Boolean status) {
 		this.id = id;
 		this.title = title;
 		this.description = description;
 		this.startingDate = startingDate;
 		this.finishingDate = finishingDate;
-        this.movieType = movieType;
-        this.room = room;
-        this.fShowTime = fShowTime;
-        this.sShowTime = sShowTime;
-        this.tShowTime = tShowTime;
-        this.cover = cover;
+		this.movieType = movieType;
+		this.room = room;
+		this.firstShowTime = firstShowTime;
+		this.secondShowTime = secondShowTime;
+		this.thirdShowTime = thirdShowTime;
+		this.cover = cover;
 		this.status = status;
 	}
 
@@ -79,7 +91,7 @@ public class Movie {
 		this.finishingDate = finishingDate;
 	}
 
-    public String getMovieType() {
+	public String getMovieType() {
 		return movieType;
 	}
 
@@ -87,7 +99,7 @@ public class Movie {
 		this.movieType = movieType;
 	}
 
-    public String getRoom() {
+	public String getRoom() {
 		return room;
 	}
 
@@ -95,31 +107,31 @@ public class Movie {
 		this.room = room;
 	}
 
-    public String getfShowTime() {
-		return fShowTime;
+	public String getFirstShowTime() {
+		return firstShowTime;
 	}
 
-	public void setFShowTime(String fShowTime) {
-		this.fShowTime = fShowTime;
+	public void setFirstShowTime(String firstShowTime) {
+		this.firstShowTime = firstShowTime;
 	}
 
-    public String getSShowTime() {
-		return sShowTime;
+	public String getSecondShowTime() {
+		return secondShowTime;
 	}
 
-	public void setSShowTime(String sShowTime) {
-		this.sShowTime = sShowTime;
+	public void setSecondShowTime(String secondShowTime) {
+		this.secondShowTime = secondShowTime;
 	}
 
-    public String getTShowTime() {
-		return tShowTime;
+	public String getThirdShowTime() {
+		return thirdShowTime;
 	}
 
-	public void setTShowTime(String tShowTime) {
-		this.tShowTime = tShowTime;
+	public void setThirdShowTime(String thirdShowTime) {
+		this.thirdShowTime = thirdShowTime;
 	}
 
-    public String getCover() {
+	public String getCover() {
 		return cover;
 	}
 
