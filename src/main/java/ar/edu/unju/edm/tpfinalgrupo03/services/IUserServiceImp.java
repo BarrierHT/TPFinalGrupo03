@@ -42,7 +42,11 @@ public class IUserServiceImp implements IUserService {
     @Override
     public void editUser(User incomingUser) {
 
+        LOGGER.info(incomingUser.getId());
+
         User userSaved = userRepository.findById(incomingUser.getId()).get();
+        LOGGER.info(userSaved.getId());
+
         userSaved.setName(incomingUser.getName());
         userSaved.setSurname(incomingUser.getSurname());
         userRepository.save(userSaved);
