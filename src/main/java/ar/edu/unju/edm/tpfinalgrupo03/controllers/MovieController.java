@@ -18,11 +18,16 @@ import ar.edu.unju.edm.tpfinalgrupo03.services.IMovieService;
 
 @Controller
 public class MovieController {
-    
+
     private static final Log LOGGER = LogFactory.getLog(MovieController.class);
 
     @Autowired
     IMovieService movieService;
+
+    @GetMapping("/getMovies")
+    public String getMovies() {
+        return "/movies/show-movies.html";
+    }
 
     @GetMapping("/registerMovie")
     public ModelAndView addMovie() {
@@ -38,7 +43,7 @@ public class MovieController {
     public String saveMovie(@Valid @ModelAttribute("movie") Movie incomingMovie, BindingResult result,
             Model model) {
         LOGGER.info("Saving Course");
-        
+
         if (result.hasErrors()) {
             LOGGER.fatal("Validation error");
             model.addAttribute("movie", incomingMovie);
@@ -62,4 +67,5 @@ public class MovieController {
 
         return "redirect:/index";
     }
+
 }

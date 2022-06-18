@@ -1,211 +1,115 @@
 <!DOCTYPE html>
 <html xmlns:th="https://www.thymeleaf.org">
-	<head>
-		<meta charset="UTF-8" />
-		<title>TP3 Grupo 03</title>
-		<link th:href="@{/css/styles.css}" rel="stylesheet" type="text/css" />
-		<link
-			th:href="@{/webjars/bootstrap/5.0.0/css/bootstrap.min.css}"
-			rel="stylesheet"
-			type="text/css"
-		/>
-		<!-- <div th:insert="/layouts/head :: head"></div> -->
-	</head>
 
-	<body>	
-		<div class="container">
-			<div th:insert="/layouts/header :: header"></div>
-			<div th:insert="/layouts/navegation :: navegation"></div>
+<head>
+	<meta charset="UTF-8" />
+	<title>TP3 Grupo 03</title>
+	<link th:href="@{/css/styles.css}" rel="stylesheet" type="text/css" />
+	<link th:href="@{/webjars/bootstrap/5.0.0/css/bootstrap.min.css}" rel="stylesheet" type="text/css" />
+	<!-- <div th:insert="/layouts/head :: head"></div> -->
+</head>
 
-			<section>
-				<div class="main--form2">
-					<!-- <article class="col-6 col-xl-10">Cuerpo de la pagina</article> -->
-					<form
-						th:object="${movie}"
-						method="POST"
-						th:action="${editing}? @{/editMovie} : @{/saveMovie}"
-					>
+<body>
+	<div class="container">
+		<div th:insert="/layouts/header :: header"></div>
+		<div th:insert="/layouts/navegation :: navegation"></div>
 
-                            <div
-                            class="col-sm-10 alert alert-warning"
-                            th:if="${errors}"
-                        >Error al guardar la película</div>
+		<section>
+			<div class="main--form2">
+				<!-- <article class="col-6 col-xl-10">Cuerpo de la pagina</article> -->
+				<form th:object="${movie}" method="POST" th:action="${editing}? @{/editMovie} : @{/saveMovie}">
 
-                        <form>
-                            <div class="mb-3">
-                                <label
-								for="input--title"
-								class="col col-form-label"
-							>
+					<div class="col-sm-10 alert alert-warning" th:if="${errors}">Error al guardar la película</div>
+
+					<form>
+						<div class="mb-3">
+							<label for="input--title" class="col col-form-label">
 								Titulo
 							</label>
 							<div class="col-sm-10">
-								<input
-									type="text"
-									class="form-control"
-									id="input--title"
-									placeholder="Titulo de la película"
-									name="title"
-									th:field="*{title}"
-								/>
-                                <div
-									class="alert alert-danger"
-									th:if="${#fields.hasErrors('title')}"
-									th:errors="*{title}"
-								></div>
-                            </div>
-
-                            <div class="mb-3">
-                                <label
-								for="input--movieType"
-								class="col col-form-label"
-							>
-								Tipo de Película
-							</label>
-							<div class="col-sm-10">
-								<input
-									type="text"
-									class="form-control"
-									id="input--movieType"
-									placeholder="Tipo de Película"
-									name="movieType"
-									th:field="*{movieType}"
-								/>
-                                <div
-									class="alert alert-danger"
-									th:if="${#fields.hasErrors('movieType')}"
-									th:errors="*{movieType}"
-								></div>
-                            </div>
-
-                            <div class="mb-3">
-                                <label
-								for="input--description"
-								class="col col-form-label"
-								>Descripcion</label
-							>
-							<div class="col-sm-10">
-								<textarea
-									class="form-control"
-									placeholder="Descripcion de la película"
-									id="input--description"
-									style="height: 100px"
-									name="description"
-									th:field="*{description}"
-								></textarea>
-                                <div
-									class="alert alert-danger"
-									th:if="${#fields.hasErrors('description')}"
-									th:errors="*{description}"
-								></div>
+								<input type="text" class="form-control" id="input--title"
+									placeholder="Titulo de la película" name="title" th:field="*{title}" />
+								<div class="alert alert-danger" th:if="${#fields.hasErrors('title')}"
+									th:errors="*{title}"></div>
 							</div>
 
-                            <div class="mb-3">
-                                <label 
-                                for="input--startingDate"
-                                class="col col-form-label"
-                                >Fecha de inicio </label
-                            >
-                                    <input 
-                                    type="date" 
-                                    class="form-control" 
-                                    id="input--startingDate" 
-                                    placeholder="Starting Date" 
-                                    name="startingDate"
-                                    th:field="*{startingDate}" 
-                                />
-                                <div
-									class="alert alert-danger"
-									th:if="${#fields.hasErrors('startingDate')}"
-									th:errors="*{startingDate}"
-								></div>
-                              </div>
+							<div class="mb-3">
+								<label for="input--movieType" class="col col-form-label">
+									Tipo de Película
+								</label>
+								<div class="col-sm-10">
+									<input type="text" class="form-control" id="input--movieType"
+										placeholder="Tipo de Película" name="movieType" th:field="*{movieType}" />
+									<div class="alert alert-danger" th:if="${#fields.hasErrors('movieType')}"
+										th:errors="*{movieType}"></div>
+								</div>
 
-                              <div class="mb-3">
-                                <label 
-                                for="input--finishingDate"
-                                class="col col-form-label"
-                                >Fecha Final </label
-                            >
-                                    <input 
-                                    type="date" 
-                                    class="form-control" 
-                                    id="input--finishingDate" 
-                                    placeholder="Finishing Date" 
-                                    name="finishingDate"
-                                    th:field="*{finishingDate}" 
-                                />
-                                <div
-									class="alert alert-danger"
-									th:if="${#fields.hasErrors('finishingDate')}"
-									th:errors="*{finishingDate}"
-								></div>
-                              </div>
+								<div class="mb-3">
+									<label for="input--description" class="col col-form-label">Descripcion</label>
+									<div class="col-sm-10">
+										<textarea class="form-control" placeholder="Descripcion de la película"
+											id="input--description" style="height: 100px" name="description"
+											th:field="*{description}"></textarea>
+										<div class="alert alert-danger" th:if="${#fields.hasErrors('description')}"
+											th:errors="*{description}"></div>
+									</div>
 
-                              <div class="mb-3">
-                                <label
-								for="input--room"
-								class="col col-form-label"
-							>
-								Sala
-							</label>
-							<div class="col-sm-10">
-								<input
-									type="number"
-									class="form-control"
-									id="input--room"
-									placeholder="Sala de la película"
-									name="room"
-									th:field="*{room}"
-								/>
-                                <div
-									class="alert alert-danger"
-									th:if="${#fields.hasErrors('room')}"
-									th:errors="*{room}"
-								></div>
-                            </div>  
+									<div class="mb-3">
+										<label for="input--startingDate" class="col col-form-label">Fecha de inicio
+										</label>
+										<input type="date" class="form-control" id="input--startingDate"
+											placeholder="Starting Date" name="startingDate"
+											th:field="*{startingDate}" />
+										<div class="alert alert-danger" th:if="${#fields.hasErrors('startingDate')}"
+											th:errors="*{startingDate}"></div>
+									</div>
 
-                            <div class="mb-3">
-                                <label
-								for="input--cover"
-								class="col col-form-label"
-								>Portada (URL)</label
-							>
-							<div class="col-sm-10">
-								<input
-									class="form-control"
-									type="text"
-									id="input--cover"
-									name="cover"
-									placeholder="Copiar url de la imagen"
-									th:field="*{cover}"
-								/>
-                                <div
-									class="alert alert-danger"
-									th:if="${#fields.hasErrors('cover')}"
-									th:errors="*{cover}"
-								></div>
-                            </div>
+									<div class="mb-3">
+										<label for="input--saleDuration" class="col col-form-label">Cantidad de semanas
+											a la venta</label>
+										<input type="number" class="form-control" id="input--saleDuration"
+											placeholder="Sale Duration" name="saleDuration"
+											th:field="*{saleDuration}" />
+										<div class="alert alert-danger" th:if="${#fields.hasErrors('saleDuration')}"
+											th:errors="*{saleDuration}"></div>
+									</div>
 
-                          </form>
+									<div class="mb-3">
+										<label for="input--room" class="col col-form-label">
+											Sala
+										</label>
+										<div class="col-sm-10">
+											<input type="number" class="form-control" id="input--room"
+												placeholder="Sala numero 1" name="room" th:field="*{room}" disabled />
+											<div class="alert alert-danger" th:if="${#fields.hasErrors('room')}"
+												th:errors="*{room}"></div>
+										</div>
 
-						<div>
-							<input type="hidden" th:field="*{id}" name="id" />
-						</div>
+										<div class="mb-3">
+											<label for="input--cover" class="col col-form-label">Portada (URL)</label>
+											<div class="col-sm-10">
+												<input class="form-control" type="text" id="input--cover" name="cover"
+													placeholder="Copiar url de la imagen" th:field="*{cover}" />
+												<div class="alert alert-danger" th:if="${#fields.hasErrors('cover')}"
+													th:errors="*{cover}"></div>
+											</div>
 
-						<button
-							type="submit"
-							class="btn btn-primary"
-							th:text="${editing}? 'Editar Película' : 'Agregar Película'"
-						>
-						</button>
 					</form>
-				</div>
-				<aside></aside>
-			</section>
 
-			<div th:insert="/layouts/footer :: footer"></div>
-		</div>
-	</body>
-	
+					<div>
+						<input type="hidden" th:field="*{id}" name="id" />
+					</div>
+
+					<button type="submit" class="btn btn-primary"
+						th:text="${editing}? 'Editar Película' : 'Agregar Película'">
+					</button>
+				</form>
+			</div>
+			<aside></aside>
+		</section>
+
+		<div th:insert="/layouts/footer :: footer"></div>
+	</div>
+</body>
+
 </html>
