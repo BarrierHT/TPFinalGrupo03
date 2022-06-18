@@ -34,27 +34,29 @@ public class Movie {
 	@NotBlank(message = "Campo Obligatorio")
 	@Column(nullable = false)
 	private String description;
-	
-	@NotNull(message = "Debe ingresar una fecha")
-    @Past(message = "Ingrese una fecha posible")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-	private LocalDate startingDate;
 
 	@NotNull(message = "Debe ingresar una fecha")
-    @Past(message = "Ingrese una fecha posible")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-	private LocalDate finishingDate;
+	@Past(message = "Ingrese una fecha posible")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private LocalDate startingDate;
+
+	// @NotNull(message = "Debe ingresar una fecha")
+	// @Past(message = "Ingrese una fecha posible")
+	// @DateTimeFormat(pattern = "yyyy-MM-dd")
+	@NotNull(message = "Debe ingresar una cantidad en semanas")
+	@Min(value = 1, message = "La minima cantidad es 1 semana")
+	@Column(nullable = false)
+	private Integer saleDuration;
 
 	@NotBlank(message = "Campo Obligatorio")
 	@Column(nullable = false)
 	private String movieType;
-	
+
 	@NotNull(message = "Campo Obligatorio")
 	@Min(value = 1, message = "La única sala disponible es la número 1")
 	@Max(value = 1, message = "La única sala disponible es la número 1")
 	@Column(nullable = false)
 	private String room;
-
 
 	private String firstShowTime;
 	private String secondShowTime;
@@ -70,15 +72,16 @@ public class Movie {
 	public Movie() {
 	}
 
-	public Movie(Integer id, String title, String description, LocalDate startingDate, LocalDate finishingDate,
-			String movieType, String room, String firstShowTime, String secondShowTime, String thirdShowTime, int ticketStock,
+	public Movie(Integer id, String title, String description, LocalDate startingDate, Integer saleDuration,
+			String movieType, String room, String firstShowTime, String secondShowTime, String thirdShowTime,
+			int ticketStock,
 			String cover,
 			Boolean status) {
 		this.id = id;
 		this.title = title;
 		this.description = description;
 		this.startingDate = startingDate;
-		this.finishingDate = finishingDate;
+		this.saleDuration = saleDuration;
 		this.movieType = movieType;
 		this.room = room;
 		this.firstShowTime = firstShowTime;
@@ -91,10 +94,6 @@ public class Movie {
 
 	public Integer getId() {
 		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
 	}
 
 	public String getTitle() {
@@ -121,12 +120,12 @@ public class Movie {
 		this.startingDate = startingDate;
 	}
 
-	public LocalDate getFinishingDate() {
-		return finishingDate;
+	public Integer getSaleDuration() {
+		return saleDuration;
 	}
 
-	public void setFinishingDate(LocalDate finishingDate) {
-		this.finishingDate = finishingDate;
+	public void setSaleDuration(Integer saleDuration) {
+		this.saleDuration = saleDuration;
 	}
 
 	public String getMovieType() {
