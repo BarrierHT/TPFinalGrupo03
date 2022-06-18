@@ -1,15 +1,101 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="https://www.thymeleaf.org">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <meta charset="UTF-8" />
+    <title>TPFinal</title>
+    <link th:href="@{/css/styles.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/webjars/bootstrap/5.0.0/css/bootstrap.min.css}" rel="stylesheet" type="text/css" />
 </head>
 
 <body>
-    aaaa
+	<div class="container">
+		<div th:insert="/layouts/header :: header"></div>
+		<div th:insert="/layouts/navegation :: navegation"></div>
+		<section>
+			<div class="main--form">
+				<form th:object="${user}" method="POST" th:action="${editing}? @{/editUser} : @{/saveUser}">
+					<!-- 
+					<input type="hidden" class="form-control" th:if="${editing}" th:field="*{password}">
+					<input type="hidden" class="form-control" th:if="${editing}" th:field="*{idCard}">
+					<input type="hidden" class="form-control" th:if="${editing}" th:field="*{email}">
+					-->
+					<!--
+					<div class="alert alert-warning" th:if="${editing == false}"
+						th:text="${errorForm}? 'Hay algun error con el email o DNI (Comprueba que no esten registrados antes)' : 'Comprueba que no se haya registrado antes el correo o DNI'"
+					></div>
+					<div class="alert alert-warning" th:if="${errors}">
+						Error al guardar usuario
+					</div>
+					 -->
+						<!-- ToDo cambiar el color de la clase -->
+					<div class="form-group col-auto">
+						<label for="input--name">Nombre</label>
+						<input
+							type="text"
+							class="form-control"
+							id="input--name"
+							placeholder="Ingrese su nombre"
+							name="name"
+							th:field="*{name}"
+						/>
+						<div class="alert alert-danger"	th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+					</div>
+					<div class="form-group col-auto">
+						<label for="input--surname">Apellido</label>
+						<input
+							type="text"
+							class="form-control"
+							id="input--surname"
+							placeholder="Ingrese su apellido"
+							name="surname"
+							th:field="*{surname}"
+						/>
+						<div class="alert alert-danger" th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}"></div>
+					</div>
+					<div class="form-group col-auto" th:if="${editing == false}">
+						<label for="exampleInputPassword1">Contraseña</label>
+						<input
+							type="password"
+							class="form-control"
+							id="exampleInputPassword1"
+							placeholder="Ingrese su contraseña"
+							name="password"
+							th:field="*{password}"
+						/>
+						<div class="alert alert-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+						<small class="formtext" th:if="${editing == false}">
+							La contraseña debe contener por lo menos una letra y un numero
+						</small>
+					</div>
+					<div class="form-group col-auto" th:if="${editing == false}">
+						<label for="input--idCard">DNI</label>
+						<input
+							type="number"
+							class="form-control"
+							id="input--idCard"
+							placeholder="Ingrese su DNI"
+							name="idCard"
+							th:field="*{idCard}"
+						/>
+						<div class="alert alert-danger" th:if="${#fields.hasErrors('idCard')}" th:errors="*{idCard}"></div>
+					</div>
+					<div>
+						<input type="hidden" th:field="*{id}" name="id" />
+					</div>
+					<button
+						type="submit"
+						class="btn btn-primary"
+						th:text="${editing}? 'Editar Usuario' : 'Agregar Usuario'"
+					>
+						Registrarse
+					</button>
+				</form>
+			</div>
+			<aside></aside>
+			</section>
+		<div th:insert="/layouts/footer :: footer"></div>
+	</div>
 </body>
 
 </html>
