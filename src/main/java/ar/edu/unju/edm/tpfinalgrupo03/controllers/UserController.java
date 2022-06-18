@@ -25,114 +25,98 @@ public class UserController {
     @Autowired
     IUserService userService;
 
-    // @GetMapping("/newUser")
-    // public ModelAndView addUser() {
-    // ModelAndView view = new ModelAndView("form");
-    // User newUser = new User();
-    // view.addObject("user", newUser);
-    // view.addObject("editing", false);
-    // view.addObject("errors", false);
-    // return view;
-    // }
+    @GetMapping("/signup")
+    public ModelAndView addUser() {
+    	ModelAndView view = new ModelAndView("/auth/signup");
+    	User newUser = new User();
+    	view.addObject("user", newUser);
+    	view.addObject("editing", false);
+    	view.addObject("errors", false);
+    	LOGGER.info("view: " + view);
+    	return view;
+    }
 
-    // @PostMapping("/saveUser")
-    // public String saveUser(@Valid @ModelAttribute("user") User incomingUser,
-    // BindingResult result, Model model) {
-    // LOGGER.info("Saving User");
-    // if (result.hasErrors()) {
-    // LOGGER.fatal("Validation error");
-    // System.out.println(incomingUser.getPassword());
-    // model.addAttribute("user", incomingUser);
-    // model.addAttribute("editing", false);
-    // model.addAttribute("errors", true);
-    // return "form";
-    // }
+    @PostMapping("/saveUser")
+    public String saveUser(@Valid @ModelAttribute("user") User incomingUser, BindingResult result, Model model) {
+    	LOGGER.info("Saving User");
+    	if (result.hasErrors()) {
+    		LOGGER.fatal("Validation error");
+    		System.out.println(incomingUser.getPassword());
+    		model.addAttribute("user", incomingUser);
+    		model.addAttribute("editing", false);
+    		model.addAttribute("errors", true);
+    		return "/auth/signup";
+    	}
+    	try {
+    		userService.saveUser(incomingUser);
+    	} catch (Exception e) {
+    		LOGGER.error("The user can't be saved");
+    		model.addAttribute("errorForm", "Comprueba si tu DNI o correo electronico no fueron ingresados antes");
+    		model.addAttribute("user", incomingUser);
+    		model.addAttribute("editing", false);
+    		model.addAttribute("errors", true);
+    		return "/auth/signup";
+    	}
+    	model.addAttribute("editing", false);
+    	return "redirect:/signup";
+    }
 
-    // try {
-    // userService.saveUser(incomingUser);
-    // } catch (Exception e) {
-    // LOGGER.error("The user can't be saved");
-    // model.addAttribute("errorForm", "Comprueba si tu DNI o correo electronico no
-    // fueron ingresados antes");
-    // model.addAttribute("user", incomingUser);
-    // model.addAttribute("editing", false);
-    // model.addAttribute("errors", true);
+    @GetMapping("/getUsers")
+    public String getUsers(Model model) {
+    	model.addAttribute("UserList", userService.getUsers());
+    	return "/auth/getUsers";
+    }
 
-    // return "form";
-    // }
-    // model.addAttribute("editing", false);
-    // return "redirect:/getUsers";
-    // }
+    @GetMapping("/editUser/{id}")
+    public ModelAndView editUser(Model model, @PathVariable Integer id) {
+    	LOGGER.info("ID: " + id);
+    	User userFound = new User();
+    	try {
+    		userFound = userService.getUser(id);
+    	} catch (Exception e) {
+    		e.printStackTrace();
+    	}
+    	ModelAndView sendFoundUser = new ModelAndView("/auth/signup");
+    	sendFoundUser.addObject("user", userFound);
+    	sendFoundUser.addObject("editing", true);
+    	return sendFoundUser;
+    }
 
-    // @GetMapping("/getUsers")
-    // public String getUsers(Model model) {
+    @PostMapping("/editUser")
+    public String editUser(@Valid @ModelAttribute("user") User incomingUser, BindingResult result, Model model) {
+    	LOGGER.info("Editing User");
+    	if (result.hasErrors()) {
+    		for (int i = 0; i < result.getFieldErrors().size(); i++) {
+    			String field = result.getFieldErrors().get(i).getField().trim();
+    			LOGGER.info("field: " + field);
+    			if (!field.equals("password") && !field.equals("email") && !field.equals("idCard")) {
+    				LOGGER.info("field filtered: " + field);
+    				LOGGER.fatal("Validation error");
+    				LOGGER.fatal(result.getErrorCount());
+    				model.addAttribute("user", incomingUser);
+    				model.addAttribute("editing", true);
+    				model.addAttribute("errors", true);
+    				return "/auth/signup";
+    			}
+    		}
+    	}
+    	try {
+    		userService.editUser(incomingUser);
+    	} catch (Exception e) {
+    		LOGGER.error("The user can't be edited");
+    		model.addAttribute("errors", true);
+    	}
+    	LOGGER.error("Size of list: " + userService.getUsers().size());
+    	return "redirect:/getUsers";
+    }
 
-    // model.addAttribute("UserList", userService.getUsers());
-
-    // return "getUsers";
-    // }
-
-    // @GetMapping("/editUser/{id}")
-    // public ModelAndView editUser(Model model, @PathVariable Integer id) {
-    // LOGGER.info("ID: " + id);
-
-    // User userFound = new User();
-
-    // try {
-    // userFound = userService.getUser(id);
-    // } catch (Exception e) {
-    // e.printStackTrace();
-    // }
-
-    // ModelAndView sendFoundUser = new ModelAndView("form");
-
-    // sendFoundUser.addObject("user", userFound);
-    // sendFoundUser.addObject("editing", true);
-    // return sendFoundUser;
-    // }
-
-    // @PostMapping("/editUser")
-    // public String editUser(@Valid @ModelAttribute("user") User incomingUser,
-    // BindingResult result, Model model) {
-    // LOGGER.info("Editing User");
-
-    // if (result.hasErrors()) {
-    // for (int i = 0; i < result.getFieldErrors().size(); i++) {
-    // String field = result.getFieldErrors().get(i).getField().trim();
-    // LOGGER.info("field: " + field);
-    // if (!field.equals("password") && !field.equals("email") &&
-    // !field.equals("idCard")) {
-    // LOGGER.info("field filtered: " + field);
-    // LOGGER.fatal("Validation error");
-    // LOGGER.fatal(result.getErrorCount());
-    // model.addAttribute("user", incomingUser);
-    // model.addAttribute("editing", true);
-    // model.addAttribute("errors", true);
-    // return "form";
-    // }
-    // }
-    // }
-
-    // try {
-    // userService.editUser(incomingUser);
-    // } catch (Exception e) {
-    // LOGGER.error("The user can't be edited");
-    // model.addAttribute("errors", true);
-    // }
-
-    // LOGGER.error("Size of list: " + userService.getUsers().size());
-    // return "redirect:/getUsers";
-    // }
-
-    // @GetMapping("/deleteUser/{id}")
-    // public String deleteUser(Model model, @PathVariable Integer id) {
-
-    // try {
-    // userService.deleteUser(id);
-    // } catch (Exception e) {
-    // LOGGER.error("The user can't be deleted");
-    // }
-
-    // return "redirect:/getUsers";
-    // }
+    @GetMapping("/deleteUser/{id}")
+    public String deleteUser(Model model, @PathVariable Integer id) {
+    	try {
+    		userService.deleteUser(id);
+    	} catch (Exception e) {
+    		LOGGER.error("The user can't be deleted");
+    	}
+    	return "redirect:/getUsers";
+    }
 }

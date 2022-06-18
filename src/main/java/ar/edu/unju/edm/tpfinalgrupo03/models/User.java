@@ -5,6 +5,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 import org.springframework.stereotype.Component;
 
@@ -16,10 +23,22 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @NotNull(message = "Campo Obligatorio")
+    @Min(value = 1000000, message = "El DNI debe ser mayor que 1.000.000")
+    @Max(value = 99999999, message = "El DNI debe ser menor que 99.999.999")
     private Integer idCard;
+    @NotEmpty(message = "Campo Obligatorio")
+    @Size(min = 4, max = 12, message = "La contraseña debe tener entre 4 y 12 caracteres")
+    @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-zA-Z]).{4,12}$", message = "Siga el formato indicado")
     private String password;
     private String role;
+    @NotEmpty(message = "Campo Obligatorio")
+    @Size(max = 30, message = "El nombre ingresado es demasiado largo")
+    @NotBlank(message = "Ingrese un nombre posible")
     private String name;
+    @NotEmpty(message = "Campo Obligatorio")
+    @Size(max = 30, message = "El apellido ingresado es demasiado largo")
+    @NotBlank(message = "Ingrese un apellido posible")
     private String surname;
     private Boolean status = true;
 
