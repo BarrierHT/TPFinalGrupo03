@@ -80,7 +80,7 @@
 										</label>
 										<div class="col-sm-10">
 											<input type="number" class="form-control" id="input--room"
-												placeholder="Sala numero 1" name="room" th:field="*{room}" disabled />
+												placeholder="Sala numero 1" name="room" th:field="*{room}" th:value="1" />
 											<div class="alert alert-danger" th:if="${#fields.hasErrors('room')}"
 												th:errors="*{room}"></div>
 										</div>
