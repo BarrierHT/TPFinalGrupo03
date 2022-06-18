@@ -24,11 +24,6 @@ public class MovieController {
     @Autowired
     IMovieService movieService;
 
-    @GetMapping("/getMovies")
-    public String getMovies() {
-        return "/movies/show-movies.html";
-    }
-
     @GetMapping("/registerMovie")
     public ModelAndView addMovie() {
         ModelAndView view = new ModelAndView("/admin/edit-movie");
@@ -64,6 +59,30 @@ public class MovieController {
         }
 
         model.addAttribute("editing", false);
+
+        return "redirect:/index";
+    }
+
+    @GetMapping("/getMovies")
+    public String getMovies(Model model) {
+
+        model.addAttribute("MovieList", movieService.getMovies());
+        return "/movies/show-movies";
+    }
+
+    @GetMapping("/editMovie/{id}")
+    public ModelAndView editMovie() {
+        return null;
+    }
+
+    @PostMapping("/editMovie")
+    public String EditMovie() {
+
+        return "redirect:/index";
+    }
+
+    @PostMapping("/lockMovie")
+    public String lockMovie() {
 
         return "redirect:/index";
     }
