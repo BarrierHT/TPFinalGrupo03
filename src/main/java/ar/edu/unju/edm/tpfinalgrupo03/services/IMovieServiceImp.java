@@ -44,9 +44,13 @@ public class IMovieServiceImp implements IMovieService {
     @Override
     public void editMovie(Movie incomingMovie) {
 
+
         Movie movieSaved = movieRepository.findById(incomingMovie.getId()).get();
         movieSaved.setTitle(incomingMovie.getTitle());
+        movieSaved.setMovieType(incomingMovie.getMovieType());
         movieSaved.setDescription(incomingMovie.getDescription());
+        movieSaved.setSaleDuration(incomingMovie.getSaleDuration());
+        movieSaved.setCover(incomingMovie.getCover());
 
         movieRepository.save(movieSaved);
     }
