@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.print.attribute.standard.MediaSize.NA;
 
 import org.springframework.stereotype.Component;
 
@@ -36,16 +37,20 @@ public class UserMovie {
     // @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate createdAt;
 
-    private Integer tickets;
+    private Integer tickets = 0;
+
+    private Integer valoration;
 
     public UserMovie() {
     }
 
-    public UserMovie(Integer id, User user, Movie movie, LocalDate createdAt) {
+    public UserMovie(Integer id, User user, Movie movie, LocalDate createdAt, Integer tickets, Integer valoration) {
         this.id = id;
         this.user = user;
         this.movie = movie;
         this.createdAt = createdAt;
+        this.tickets = tickets;
+        this.valoration = valoration;
     }
 
     public Integer getId() {
@@ -74,6 +79,22 @@ public class UserMovie {
 
     public void setCreatedAt(LocalDate createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public Integer getTickets() {
+        return tickets;
+    }
+
+    public void setTickets(Integer tickets) {
+        this.tickets = tickets;
+    }
+
+    public Integer getValoration() {
+        return valoration;
+    }
+
+    public void setValoration(Integer valoration) {
+        this.valoration = valoration;
     }
 
 }
