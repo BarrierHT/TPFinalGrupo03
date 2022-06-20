@@ -99,7 +99,7 @@ public class UserController {
 			model.addAttribute("errors", true);
 		}
 		LOGGER.error("Size of list: " + userService.getUsers().size());
-		return "redirect:/getUsers";
+		return "redirect:/index";
 	}
 
 	@GetMapping("/deleteUser/{id}")
@@ -109,6 +109,6 @@ public class UserController {
 		} catch (Exception e) {
 			LOGGER.error("The user can't be deleted");
 		}
-		return "redirect:/getUsers";
+		return "redirect:/index";
 	}
 }

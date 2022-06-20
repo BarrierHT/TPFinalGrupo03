@@ -1,5 +1,6 @@
 package ar.edu.unju.edm.tpfinalgrupo03.controllers;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
@@ -10,8 +11,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import ar.edu.unju.edm.tpfinalgrupo03.models.Movie;
+import ar.edu.unju.edm.tpfinalgrupo03.models.User;
 import ar.edu.unju.edm.tpfinalgrupo03.relations.UserMovie;
+import ar.edu.unju.edm.tpfinalgrupo03.services.IMovieService;
 import ar.edu.unju.edm.tpfinalgrupo03.services.IUserMovieService;
+import ar.edu.unju.edm.tpfinalgrupo03.services.IUserService;
 
 @Controller
 public class UserMovieController {
@@ -21,42 +26,77 @@ public class UserMovieController {
     @Autowired
     IUserMovieService userMovieService;
 
+    @Autowired
+    IMovieService movieService;
+
+    @Autowired
+    IUserService userService;
+
     @PostMapping("/buy-tickets")
-    public String joinCourse(@RequestParam Map<String, String> body) {
+    public String buyTickets(@RequestParam Map<String, String> body) {
         Integer movieId = Integer.parseInt(body.get("movieId")); // get the id from the body
         Integer userId = Integer.parseInt(body.get("userId")); // get the id from the body
 
         LOGGER.info("id: " + movieId);
+        LOGGER.info("id: " + userId);
+
         // ToDo
         try {
-            // List<UserMovie> listUserCourse = userMovieService.getUserMovies();
-            // for (int i = 0; i < listUserCourse.size(); i++) {
-            // Integer courseIdStored = listUserCourse.get(i).getCourse().getId();
-            // Integer userIdStored = listUserCourse.get(i).getUser().getId();
-            // LOGGER.info("courseId from db: " + courseIdStored);
-            // LOGGER.info("userId from db: " + userIdStored);
-            // if (courseIdStored == courseId && userId == userIdStored) {
-            // LOGGER.fatal("Relation already exists");
-            // // ?Send a variable to the view and lock inscription button
-            // // throw new Error("Relation already exists");
-            // return "redirect:/index";
-            // }
-            // }
-            // UserCourse userCourse = new UserCourse();
+            List<UserMovie> listUserMovies = userMovieService.getUserMovies();
+            // LOGGER.info(listUserMovies.size());
+            for (int i = 0; i < listUserMovies.size(); i++) {
+                Integer movieIdStored = listUserMovies.get(i).getMovie().getId();
+                Integer userIdStored = listUserMovies.get(i).getUser().getId();
+                LOGGER.info("movieId from db: " + movieIdStored);
+                LOGGER.info("userId from db: " + userIdStored);
+                if (movieIdStored == movieId && userId == userIdStored) {
+                    LOGGER.info("Relation already exists");
 
-            // Course course = courseService.getCourse(courseId);
-            // userCourse.setCourse(course);
+                    Movie movie = movieService.getMovie(movieId);
 
-            // User user = userService.getUser(userId);
-            // userCourse.setUser(user);
-            // // LOGGER.info(LocalDate.now());
-            // userCourse.setInscriptionDate(LocalDate.now());
-            // userCourseService.saveUserCourse(userCourse);
+                    LOGGER.info(movie.getTicketStock());
+
+                    if (movie.getTicketStock() > 0) {
+                        movie.setTicketStock(movie.getTicketStock() - 1);
+                        movieService.saveMovie(movie);
+
+                        UserMovie userMovie = listUserMovies.get(i);
+
+                        userMovie.setTickets(userMovie.getTickets() + 1);
+
+                        userMovieService.saveUserMovie(userMovie);
+                    }
+
+                    return "redirect:/getMovies";
+                }
+            }
+            UserMovie userMovie = new UserMovie();
+
+            Movie movie = movieService.getMovie(movieId);
+            userMovie.setMovie(movie);
+
+            LOGGER.info(movie.getTitle());
+            if (movie.getTicketStock() > 0) {
+                movie.setTicketStock(movie.getTicketStock() - 1); // * Reduce ticket stock in 1
+                movieService.saveMovie(movie);
+
+                User user = userService.getUser(userId);
+                userMovie.setUser(user);
+
+                LOGGER.info(user.getName());
+
+                userMovie.setCreatedAt(LocalDate.now());
+                userMovie.setTickets(1);
+
+                userMovieService.saveUserMovie(userMovie);
+            } else
+                LOGGER.fatal("The user can't buy tickets");
+
         } catch (Exception e) {
             LOGGER.error("The user can't buy tickets");
 
         }
-        return "redirect:/index";
+        return "redirect:/getMovies";
     }
 
 }

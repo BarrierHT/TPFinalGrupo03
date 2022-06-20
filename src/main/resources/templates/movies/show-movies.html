@@ -2,62 +2,91 @@
 <html xmlns:th="https://www.thymeleaf.org">
 
 <head>
-    <meta charset="UTF-8" />
-    <title>TPFinal</title>
-    <link th:href="@{/css/styles.css}" rel="stylesheet" type="text/css" />
-    <link th:href="@{/webjars/bootstrap/5.0.0/css/bootstrap.min.css}" rel="stylesheet" type="text/css" />
+  <meta charset="UTF-8" />
+  <title>TPFinal</title>
+  <link th:href="@{/css/styles.css}" rel="stylesheet" type="text/css" />
+  <link th:href="@{/webjars/bootstrap/5.0.0/css/bootstrap.min.css}" rel="stylesheet" type="text/css" />
 </head>
 
 <body>
-    <div class="container">
-        <div th:insert="/layouts/header :: header"></div>
-        <div th:insert="/layouts/navegation :: navegation"></div>
+  <div class="container">
+    <div th:insert="/layouts/header :: header"></div>
+    <div th:insert="/layouts/navegation :: navegation"></div>
 
-        <section>
+    <section>
 
-            <div class="cont-car" th:each="movie:${MovieList}">
-                <div class="card text-center col-8">
-                  <div class="card-header" th:text="'Tipo de película: ' + ${movie.movieType}"></div>
-                  <div class="card-body">
-                    <h5 class="card-title" th:text="${movie.title}"></h5>
-                    <div class="cont-img">
-                      <img th:src="${movie.cover}" class="rounded" />
-                      <!-- alt="Imagen de la película" -->
-                    </div>
-                    <p class="card-text" th:text="${movie.description}"></p>
-                  
-                    <form action="/joinMovie" method="POST">
-                        <h3 th:if="${UserList}">Seleccione un usuario</h3>
+      <div class="cont-car" th:each="movie:${MovieList}">
+        <div class="card text-center col-8">
+          <div class="card-header" th:text="'Tipo de película: ' + ${movie.movieType}"></div>
+          <div class="card-body">
+            <h5 class="card-title" th:text="${movie.title}"></h5>
+            <div class="cont-img">
+              <img th:src="${movie.cover}" class="rounded" />
+              <!-- alt="Imagen de la película" -->
+            </div>
+            <p class="card-text" th:text="${movie.description}"></p>
+
+
+
+            <form action="/buy-tickets" method="POST">
+              <!-- <h3 th:if="${UserList}">Seleccione un usuario</h3>
                         <select class="btn btn-primary" name="userId">
                           <option th:each="user:${UserList}" th:value="${user.id}" th:text="${user.name}"> </option>
-                        </select>
-                        <input type="hidden" name="movieId" th:value="${movie.id}" />
-                        <button class="btn btn-primary" type="submit">Comprar entrada</button>
-                      </form>
+                        </select> -->
+              <input type="hidden" name="userId" th:value="${userId}">
+              <input type="hidden" name="movieId" th:value="${movie.id}" />
+              <button class="btn btn-primary" type="submit">Comprar entrada</button>
+            </form>
 
-                    </div>
+          </div>
 
-                  <div class="card-footer text-muted" th:text="'Cantidad de semanas a la venta: ' + ${movie.saleDuration} + ' semanas'"></div>
-                  <div class="card-footer text-muted" th:text="'Sala: ' + ${movie.room}"></div>
-                  <div class="card-footer text-muted">
-                    
-                    <div class="cont-car">
-                        <form action="/lockMovie" method="POST">
-                          <input type="hidden" th:value="${movie.id}" name="id" />
-                          <button type="submit" class="btn btn-danger">
-                            Bloquear Película
-                          </button>
-                        </form>
-                        <a href="#" class="btn btn-warning" th:href="@{'/editMovie/'+ ${movie.id}}">Editar</a>
-                      </div>
+          <div class="card-footer text-muted"
+            th:text="'Cantidad de semanas a la venta: ' + ${movie.saleDuration} + ' semanas'"></div>
+          <div class="card-footer text-muted" th:text="'Sala: ' + ${movie.room}"></div>
+          <div class="card-footer text-muted" th:text="'Tickets en stock: ' + ${movie.ticketStock}"></div>
 
-                    </div>
-                  </div>
-                </div>
-        </section>
+          <div class="card-footer text-muted">
 
-        <div th:insert="/layouts/footer :: footer"></div>
-    </div>
+            <div class="cont-car">
+              <form action="/lockMovie" method="POST">
+                <input type="hidden" th:value="${movie.id}" name="id" />
+                <button type="submit" class="btn btn-danger">
+                  Bloquear Película
+                </button>
+              </form>
+              <a href="#" class="btn btn-warning" th:href="@{'/editMovie/'+ ${movie.id}}">Editar</a>
+            </div>
+
+            <div class="cont-car">
+              <form action="/valoration-movie" method="POST">
+                <input type="hidden" th:value="${movie.id}" name="movieId" />
+                <input type="hidden" th:value="${userId}" name="userId" />
+                <input type="number" name="valoration" placeholder="Digite su valoracion">
+                <button type="submit" class="btn btn-primary">
+                  Valorar pelicula
+                </button>
+              </form>
+            </div>
+
+            <div class="cont-car">
+
+              <form action="/comment-movie" method="POST">
+                <input type="hidden" th:value="${movie.id}" name="movieId" />
+                <input type="hidden" th:value="${userId}" name="userId" />
+                <input type="text" name="comment" placeholder="Digite su Comentario">
+                <button type="submit" class="btn btn-primary">
+                  Comentar pelicula
+                </button>
+              </form>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div th:insert="/layouts/footer :: footer"></div>
+  </div>
 </body>
 
 </html>
