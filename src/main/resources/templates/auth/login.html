@@ -9,10 +9,12 @@
 </head>
 
 <body>
-    <div class="container">
-        <div th:insert="/layouts/header :: header"></div>
-        <div th:insert="/layouts/navegation :: navegation"></div>
+	<div th:insert="/layouts/header :: header"></div>
+    <div th:insert="/layouts/navegation :: navegation"></div>
+	
 
+    <div class="container">
+        
         <section>
             <form action="/login" method="POST">
                 <input type="Number" placeholder="Ingrese el DNI" name="idCard" required>
@@ -22,8 +24,9 @@
 
         </section>
 
-        <div th:insert="/layouts/footer :: footer"></div>
     </div>
+
+	<div th:insert="/layouts/footer :: footer"></div>
 </body>
 
 </html>
