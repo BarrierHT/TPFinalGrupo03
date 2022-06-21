@@ -1,5 +1,6 @@
 package ar.edu.unju.edm.tpfinalgrupo03.models;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -26,6 +27,7 @@ public class User {
     @NotNull(message = "Campo Obligatorio")
     @Min(value = 1000000, message = "El DNI debe ser mayor que 1.000.000")
     @Max(value = 99999999, message = "El DNI debe ser menor que 99.999.999")
+    @Column(unique = true, nullable = false)
     private Integer idCard;
     @NotEmpty(message = "Campo Obligatorio")
     @Size(min = 4, max = 12, message = "La contraseña debe tener entre 4 y 12 caracteres")

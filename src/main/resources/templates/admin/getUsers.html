@@ -2,10 +2,10 @@
 <html xmlns:th="https://www.thymeleaf.org">
 
 <head>
-    <meta charset="UTF-8" />
-    <title>TPFinal</title>
-    <link th:href="@{/css/styles.css}" rel="stylesheet" type="text/css" />
-    <link th:href="@{/webjars/bootstrap/5.0.0/css/bootstrap.min.css}" rel="stylesheet" type="text/css" />
+	<meta charset="UTF-8" />
+	<title>TPFinal</title>
+	<link th:href="@{/css/styles.css}" rel="stylesheet" type="text/css" />
+	<link th:href="@{/webjars/bootstrap/5.0.0/css/bootstrap.min.css}" rel="stylesheet" type="text/css" />
 </head>
 
 <body>
@@ -14,7 +14,6 @@
       	
 	
 	<div class="container">
-    	
     	<section>
       		<div class="table-responsive">
           		<table class="table table-sm table-dark table-hover">
@@ -72,23 +71,20 @@
 	<div th:insert="/layouts/footer :: footer"></div>
 </body>
 
-<script 
-	th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"
-    type="text/javascript" src="webjars/jquery/3.5.1/jquery.min.js"> 
+<script th:src="@{/webjars/jquery/3.5.1/jquery.min.js}" type="text/javascript" src="webjars/jquery/3.5.1/jquery.min.js">
 </script>
-<script 
-	th:src="@{/webjars/bootstrap/5.0.0/js/bootstrap.min.js}"
-    type="text/javascript" src="webjars/bootstrap/5.0.0/js/bootstrap.min.js"> 
-</script>
+<script th:src="@{/webjars/bootstrap/5.0.0/js/bootstrap.min.js}" type="text/javascript"
+	src="webjars/bootstrap/5.0.0/js/bootstrap.min.js">
+	</script>
 
-<script type="text/javascript"> 
-	function checkDelete(id){
-    	console.log("onclick ", id);
-    	$('#modalDelete').modal('show');
+<script type="text/javascript">
+	function checkDelete(id) {
+		console.log("onclick ", id);
+		$('#modalDelete').modal('show');
 		$("#userID").val(id);
 	}
-	function deleteUser(){
-    	var id = $("#userID").val();
+	function deleteUser() {
+		var id = $("#userID").val();
 		window.location = "/deleteUser/" + id;
 	}
 </script>

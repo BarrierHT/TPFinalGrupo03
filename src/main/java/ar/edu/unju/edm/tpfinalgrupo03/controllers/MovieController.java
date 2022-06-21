@@ -75,6 +75,7 @@ public class MovieController {
     public String getMovies(Model model) {
 
         model.addAttribute("MovieList", movieService.getMovies());
+        model.addAttribute("userId", "1");
         return "/movies/show-movies";
     }
 
@@ -121,12 +122,34 @@ public class MovieController {
     @PostMapping("/lockMovie")
     public String lockCourse(@RequestParam Map<String, String> body) {
         Integer id = Integer.parseInt(body.get("id"));
-        
+
         try {
             movieService.deleteMovie(id);
         } catch (Exception e) {
             LOGGER.error("The movie can't be locked");
         }
+
+        return "redirect:/getMovies";
+    }
+
+    @PostMapping("/valoration-movie")
+    public String valorateMovie(@RequestParam Map<String, String> body) {
+        Integer movieId = Integer.parseInt(body.get("movieId"));
+        Integer userId = Integer.parseInt(body.get("userId"));
+        Integer valoration = Integer.parseInt(body.get("valoration"));
+
+        LOGGER.info(valoration);
+
+        return "redirect:/getMovies";
+    }
+
+    @PostMapping("/comment-movie")
+    public String commentMovie(@RequestParam Map<String, String> body) {
+        Integer movieId = Integer.parseInt(body.get("movieId"));
+        Integer userId = Integer.parseInt(body.get("userId"));
+        String comment = body.get("comment");
+
+        LOGGER.info(comment);
 
         return "redirect:/getMovies";
     }

@@ -2,13 +2,14 @@
 <html xmlns:th="https://www.thymeleaf.org">
 
 <head>
-    <meta charset="UTF-8" />
-    <title>TPFinal</title>
-    <link th:href="@{/css/styles.css}" rel="stylesheet" type="text/css" />
-    <link th:href="@{/webjars/bootstrap/5.0.0/css/bootstrap.min.css}" rel="stylesheet" type="text/css" />
+  <meta charset="UTF-8" />
+  <title>TPFinal</title>
+  <link th:href="@{/css/styles.css}" rel="stylesheet" type="text/css" />
+  <link th:href="@{/webjars/bootstrap/5.0.0/css/bootstrap.min.css}" rel="stylesheet" type="text/css" />
 </head>
 
 <body>
+
 	<div th:insert="/layouts/header :: header"></div>
     <div th:insert="/layouts/navegation :: navegation"></div>
 	
@@ -53,16 +54,45 @@
 					    <li class="list-group-item bg-dark">
 					    	<div class="text-muted text-center" th:text="'Sala: ' + ${movie.room}"></div>
 					    </li>
-					</ul>
+              <div class="card-footer text-muted" th:text="'Tickets en stock: ' + ${movie.ticketStock}"></div>
+              <li class="list-group-item bg-dark">
+					    	<div class="text-muted text-center" th:text="'Tickets en stock: ' + ${movie.ticketStock}"></div>
+					    </li>
+					  </ul>
 					
 		        	<div class="card-footer text-muted">
+                
 			           	<div class="cont-car">
-				       		<form action="/lockMovie" method="POST">
+				       		    <form action="/lockMovie" method="POST">
 			              		<input type="hidden" th:value="${movie.id}" name="id" />
-			          			<button type="submit" class="btn btn-danger btn-e">Bloquear Película</button>
+			          			  <button type="submit" class="btn btn-danger btn-e">Bloquear Película</button>
 			               	</form>
 			          		<a href="#" class="btn btn-warning btn-e" th:href="@{'/editMovie/'+ ${movie.id}}">Editar</a>
 			            </div>
+                  
+                
+                  <div class="cont-car">
+                      <form action="/valoration-movie" method="POST">
+                        <input type="hidden" th:value="${movie.id}" name="movieId" />
+                        <input type="hidden" th:value="${userId}" name="userId" />
+                        <input type="number" name="valoration" placeholder="Digite su valoracion">
+                        <button type="submit" class="btn btn-primary">
+                          Valorar pelicula
+                        </button>
+                      </form>
+                    </div>
+
+                    <div class="cont-car">
+                      <form action="/comment-movie" method="POST">
+                        <input type="hidden" th:value="${movie.id}" name="movieId" />
+                        <input type="hidden" th:value="${userId}" name="userId" />
+                        <input type="text" name="comment" placeholder="Digite su Comentario">
+                        <button type="submit" class="btn btn-primary">
+                          Comentar pelicula
+                        </button>
+                      </form>
+                    </div>
+                
 			  		</div>
 	  				
 				</div>
@@ -113,6 +143,7 @@
     </div>
 
 	<div th:insert="/layouts/footer :: footer"></div>
+
 </body>
 
 </html>
