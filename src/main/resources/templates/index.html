@@ -9,11 +9,11 @@
 </head>
 
 <body>
-	<div th:insert="/layouts/header :: header"></div>
+    <div th:insert="/layouts/header :: header"></div>
     <div th:insert="/layouts/navegation :: navegation"></div>
-    
+
     <div class="container">
-        
+
         <section>
             <div class="main--menu text-center">
                 <h1 class="color">Menu principal</h1>
@@ -30,7 +30,7 @@
             <div class="main--menu text-center">
                 <h1>Registro de Peliculas</h1>
 
-                <div class="cont-car" th:each="userMovie:${UserMovieList}">
+                <div class="cont-car" style="color: #fff;" th:each="userMovie:${UserMovieList}">
                     <div class="card-header" th:text="'Titulo de la pelicula: ' + ${userMovie.movie.title}"></div>
                     <div class="card-header" th:text="'Tickets comprados: ' + ${userMovie.tickets}"></div>
                     <div class="card-header" th:text="'Valoracion: ' + ${userMovie.valoration}"></div>
@@ -39,9 +39,9 @@
                 </div>
 
         </section>
-    
+
     </div>
-    
+
     <div th:insert="/layouts/footer :: footer"></div>
 </body>
 
