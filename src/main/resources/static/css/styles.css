@@ -1,5 +1,68 @@
-* {
+:root{
+	--rojo: #E50914;
+	--fondo: #141414;
+	--letra: white;
+}
+
+*{
 	padding: 0;
 	margin: 0;
 	box-sizing: border-box;
+}
+
+.color{
+	color: var(--letra);
+}
+
+header{
+	font-size: 3em;
+	font-family: fantasy;
+}
+
+footer{
+	color: gray;
+	font-size: .8em;
+	font-family: monospace;
+}
+
+body{
+	  background: url("../img/fondo-body.jpg");
+	  background-size: cover;
+	  background-repeat: no-repeat;
+	  background-position: center center;
+	  background-attachment: fixed;
+}
+
+.container{
+	background-color: var(--fondo);
+}
+
+.main--form {
+  color: var(--letra);
+  text-shadow: 1px 1px black;
+}
+
+.cont-car {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cont-img{
+  height: auto;
+  width: auto;
+  margin: auto;
+}
+
+img{
+	max-height: 100%;
+	max-width: 100%;
+}
+
+.card{
+  margin: 20px 20px;
+}
+
+.btn-e{
+	margin: 5px;
 }

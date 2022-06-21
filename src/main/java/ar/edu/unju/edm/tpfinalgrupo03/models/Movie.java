@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.Table;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -63,7 +64,8 @@ public class Movie {
 	private String thirdShowTime;
 	private int ticketStock = 100;
 
-	@Size(max = 255, message = "URL demasiado larga")
+	//@Size(max = 255, message = "URL demasiado larga")
+	@Lob
 	private String cover; // imageURL
 
 	@Column(nullable = false)

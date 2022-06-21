@@ -9,10 +9,13 @@
 </head>
 
 <body>
+	<div th:insert="/layouts/header :: header"></div>
+    <div th:insert="/layouts/navegation :: navegation"></div>
+      	
+	
 	<div class="container">
-    	<div th:insert="/layouts/header :: header"></div>
-    	<div th:insert="/layouts/navegation :: navegation"></div>
-      	<section>
+    	
+    	<section>
       		<div class="table-responsive">
           		<table class="table table-sm table-dark table-hover">
             		<caption class="table-caption">List of users</caption>
@@ -64,8 +67,9 @@
       		</div>
     	</div>
 
-		<div th:insert="/layouts/footer :: footer"></div>
 	</div>
+
+	<div th:insert="/layouts/footer :: footer"></div>
 </body>
 
 <script 

@@ -1,5 +1,6 @@
 package ar.edu.unju.edm.tpfinalgrupo03.controllers;
 
+import java.util.Base64;
 import java.util.Map;
 
 import javax.validation.Valid;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import ar.edu.unju.edm.tpfinalgrupo03.models.Movie;
@@ -38,9 +40,8 @@ public class MovieController {
         return view;
     }
 
-    @PostMapping("/saveMovie")
-    public String saveMovie(@Valid @ModelAttribute("movie") Movie incomingMovie, BindingResult result,
-            Model model) {
+    @PostMapping(value = "/saveMovie", consumes = "multipart/form-data")
+    public String saveMovie(@Valid @ModelAttribute("movie") Movie incomingMovie, BindingResult result, Model model, @RequestParam("file") MultipartFile file) {
         LOGGER.info("Saving Movie");
 
         if (result.hasErrors()) {
@@ -52,6 +53,9 @@ public class MovieController {
         }
 
         try {
+        	byte[] content = file.getBytes();
+			String base64 = Base64.getEncoder().encodeToString(content);
+			incomingMovie.setCover(base64);
             movieService.saveMovie(incomingMovie);
         } catch (Exception e) {
             LOGGER.error("The movie can't be saved");

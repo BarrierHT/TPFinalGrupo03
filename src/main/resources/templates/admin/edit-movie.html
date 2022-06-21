@@ -10,14 +10,16 @@
 </head>
 
 <body>
-	<div class="container">
-		<div th:insert="/layouts/header :: header"></div>
-		<div th:insert="/layouts/navegation :: navegation"></div>
+	<div th:insert="/layouts/header :: header"></div>
+	<div th:insert="/layouts/navegation :: navegation"></div>
+	
 
+	<div class="container">
+		
 		<section>
-			<div class="main--form2">
+			<div class="main--form">
 				<!-- <article class="col-6 col-xl-10">Cuerpo de la pagina</article> -->
-				<form th:object="${movie}" method="POST" th:action="${editing}? @{/editMovie} : @{/saveMovie}">
+				<form th:object="${movie}" method="POST" th:action="${editing}? @{/editMovie} : @{/saveMovie}" enctype="multipart/form-data">
 
 					<div class="col-sm-10 alert alert-warning" th:if="${errors}">Error al guardar la película</div>
 
@@ -86,10 +88,16 @@
 										</div>
 
 										<div class="mb-3">
-											<label for="input--cover" class="col col-form-label">Portada (URL)</label>
+											<label for="file" class="col col-form-label">Portada (file)</label>
 											<div class="col-sm-10">
+												<!--
 												<input class="form-control" type="text" id="input--cover" name="cover"
 													placeholder="Copiar url de la imagen" th:field="*{cover}" />
+												-->
+												<input type="file" name="file" class="form-control-file" id="file"
+														accept="image/x-png,image/gif,image/jpeg,image/png,image/jpeg"
+														onchange="loadFile(event)"> <img id="output"
+														style="padding-top: 2px; width: 146px;" />
 												<div class="alert alert-danger" th:if="${#fields.hasErrors('cover')}"
 													th:errors="*{cover}"></div>
 											</div>
@@ -108,8 +116,9 @@
 			<aside></aside>
 		</section>
 
-		<div th:insert="/layouts/footer :: footer"></div>
 	</div>
+
+	<div th:insert="/layouts/footer :: footer"></div>
 </body>
 
 </html>

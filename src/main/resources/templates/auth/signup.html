@@ -9,10 +9,11 @@
 </head>
 
 <body>
+	<div th:insert="/layouts/header :: header"></div>
+	<div th:insert="/layouts/navegation :: navegation"></div>
+		
 
 	<div class="container">
-		<div th:insert="/layouts/header :: header"></div>
-		<div th:insert="/layouts/navegation :: navegation"></div>
 		<section>
 			<div class="main--form">
 				<form th:object="${user}" method="POST" th:action="${editing}? @{/editUser} : @{/saveUser}">
@@ -95,8 +96,10 @@
 			</div>
 			<aside></aside>
 			</section>
-		<div th:insert="/layouts/footer :: footer"></div>
+		
 	</div>
+
+	<div th:insert="/layouts/footer :: footer"></div>
 </body>
 
 </html>

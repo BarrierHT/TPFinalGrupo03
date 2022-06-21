@@ -4,25 +4,25 @@
 <head>
     <meta charset="UTF-8" />
     <title>TPFinal</title>
-    <link th:href="@{/css/styles.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{css/styles.css}" rel="stylesheet" type="text/css" />
     <link th:href="@{/webjars/bootstrap/5.0.0/css/bootstrap.min.css}" rel="stylesheet" type="text/css" />
 </head>
 
 <body>
+	<div th:insert="/layouts/header :: header"></div>
+    <div th:insert="/layouts/navegation :: navegation"></div>
+    
     <div class="container">
-        <div th:insert="/layouts/header :: header"></div>
-        <div th:insert="/layouts/navegation :: navegation"></div>
-
+        
         <section>
             <div class="main--menu text-center">
-                <h1>Menu principal</h1>
+                <h1 class="color">Menu principal</h1>
             </div>
-
-
         </section>
-
-        <div th:insert="/layouts/footer :: footer"></div>
+    
     </div>
+    
+    <div th:insert="/layouts/footer :: footer"></div>
 </body>
 
 </html>
