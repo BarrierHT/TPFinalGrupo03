@@ -63,6 +63,7 @@ public class UserMovieController {
 
                         UserMovie userMovie = listUserMovies.get(i);
 
+                        userMovie.setCreatedAt(LocalDate.now());
                         userMovie.setTickets(userMovie.getTickets() + 1);
 
                         userMovieService.saveUserMovie(userMovie);
@@ -106,11 +107,43 @@ public class UserMovieController {
         Integer userId = Integer.parseInt(body.get("userId"));
         Integer valoration = Integer.parseInt(body.get("valoration"));
 
-        LOGGER.info("id: " + movieId);
-        LOGGER.info("id: " + userId);
+        LOGGER.info("movieId: " + movieId);
+        LOGGER.info("userId: " + userId);
 
-        //ToDo
+        try {
+            List<UserMovie> listUserMovies = userMovieService.getUserMovies();
+            for (int i = 0; i < listUserMovies.size(); i++) {
+                Integer movieIdStored = listUserMovies.get(i).getMovie().getId();
+                Integer userIdStored = listUserMovies.get(i).getUser().getId();
+                LOGGER.info("movieId from db: " + movieIdStored);
+                LOGGER.info("userId from db: " + userIdStored);
+                if (movieIdStored == movieId && userId == userIdStored) {
+                    LOGGER.info("Relation already exists");
 
+                    UserMovie userMovie = listUserMovies.get(i);
+
+                    userMovie.setValoration(valoration);
+                    userMovieService.saveUserMovie(userMovie);
+
+                    return "redirect:/getMovies";
+                }
+            }
+
+            UserMovie userMovie = new UserMovie();
+
+            Movie movie = movieService.getMovie(movieId);
+            userMovie.setMovie(movie);
+
+            User user = userService.getUser(userId);
+            userMovie.setUser(user);
+
+            userMovie.setValoration(valoration);
+            userMovieService.saveUserMovie(userMovie);
+
+        } catch (Exception e) {
+            LOGGER.error("The user can't valorate the movie");
+
+        }
         return "redirect:/getMovies";
     }
 
