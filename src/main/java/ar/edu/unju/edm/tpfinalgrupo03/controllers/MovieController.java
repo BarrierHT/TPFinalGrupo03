@@ -132,26 +132,4 @@ public class MovieController {
         return "redirect:/getMovies";
     }
 
-    @PostMapping("/valoration-movie")
-    public String valorateMovie(@RequestParam Map<String, String> body) {
-        Integer movieId = Integer.parseInt(body.get("movieId"));
-        Integer userId = Integer.parseInt(body.get("userId"));
-        Integer valoration = Integer.parseInt(body.get("valoration"));
-
-        LOGGER.info(valoration);
-
-        return "redirect:/getMovies";
-    }
-
-    @PostMapping("/comment-movie")
-    public String commentMovie(@RequestParam Map<String, String> body) {
-        Integer movieId = Integer.parseInt(body.get("movieId"));
-        Integer userId = Integer.parseInt(body.get("userId"));
-        String comment = body.get("comment");
-
-        LOGGER.info(comment);
-
-        return "redirect:/getMovies";
-    }
-
 }
