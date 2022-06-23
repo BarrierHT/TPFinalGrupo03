@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import ar.edu.unju.edm.tpfinalgrupo03.models.Movie;
 import ar.edu.unju.edm.tpfinalgrupo03.models.User;
 import ar.edu.unju.edm.tpfinalgrupo03.relations.UserMovie;
+import ar.edu.unju.edm.tpfinalgrupo03.relations.UserMovieComment;
 import ar.edu.unju.edm.tpfinalgrupo03.services.IMovieService;
 import ar.edu.unju.edm.tpfinalgrupo03.services.IUserMovieService;
 import ar.edu.unju.edm.tpfinalgrupo03.services.IUserService;
@@ -99,4 +100,28 @@ public class UserMovieController {
         return "redirect:/getMovies";
     }
 
+    @PostMapping("/valoration-movie")
+    public String valorateMovie(@RequestParam Map<String, String> body) throws Exception {
+        Integer movieId = Integer.parseInt(body.get("movieId"));
+        Integer userId = Integer.parseInt(body.get("userId"));
+        Integer valoration = Integer.parseInt(body.get("valoration"));
+
+        LOGGER.info("id: " + movieId);
+        LOGGER.info("id: " + userId);
+
+        //ToDo
+
+        return "redirect:/getMovies";
+    }
+
+    @PostMapping("/comment-movie")
+    public String commentMovie(@RequestParam Map<String, String> body) {
+        Integer movieId = Integer.parseInt(body.get("movieId"));
+        Integer userId = Integer.parseInt(body.get("userId"));
+        String comment = body.get("comment");
+
+        //ToDo
+
+        return "redirect:/getMovies";
+    }
 }
