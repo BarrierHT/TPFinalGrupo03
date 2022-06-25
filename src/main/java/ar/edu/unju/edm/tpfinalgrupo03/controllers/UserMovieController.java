@@ -16,6 +16,7 @@ import ar.edu.unju.edm.tpfinalgrupo03.models.User;
 import ar.edu.unju.edm.tpfinalgrupo03.relations.UserMovie;
 import ar.edu.unju.edm.tpfinalgrupo03.relations.UserMovieComment;
 import ar.edu.unju.edm.tpfinalgrupo03.services.IMovieService;
+import ar.edu.unju.edm.tpfinalgrupo03.services.IUserMovieCommentService;
 import ar.edu.unju.edm.tpfinalgrupo03.services.IUserMovieService;
 import ar.edu.unju.edm.tpfinalgrupo03.services.IUserService;
 
@@ -32,6 +33,9 @@ public class UserMovieController {
 
     @Autowired
     IUserService userService;
+
+    @Autowired
+    IUserMovieCommentService userMovieCommentService;
 
     @PostMapping("/buy-tickets")
     public String buyTickets(@RequestParam Map<String, String> body) {
@@ -153,8 +157,25 @@ public class UserMovieController {
         Integer userId = Integer.parseInt(body.get("userId"));
         String comment = body.get("comment");
 
-        //ToDo
+        LOGGER.info("id: " + movieId);
+        LOGGER.info("id: " + userId);
 
+        try {
+            UserMovieComment userMovieComment = new UserMovieComment();
+
+            Movie movie = movieService.getMovie(movieId);
+            userMovieComment.setMovie(movie);
+
+            User user = userService.getUser(userId);
+            userMovieComment.setUser(user);
+
+            userMovieComment.setComment(comment);
+            userMovieCommentService.saveUserMovieComment(userMovieComment);
+
+        } catch (Exception e) {
+            LOGGER.error("The user can't comment the movie");
+
+        }
         return "redirect:/getMovies";
     }
 }
