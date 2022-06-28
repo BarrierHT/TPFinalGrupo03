@@ -67,7 +67,7 @@ public class UserMovieController {
 
                         UserMovie userMovie = listUserMovies.get(i);
 
-                        userMovie.setCreatedAt(LocalDate.now());
+                        // userMovie.setCreatedAt(LocalDate.now());
                         userMovie.setTickets(userMovie.getTickets() + 1);
 
                         userMovieService.saveUserMovie(userMovie);
@@ -141,6 +141,7 @@ public class UserMovieController {
             User user = userService.getUser(userId);
             userMovie.setUser(user);
 
+            userMovie.setCreatedAt(LocalDate.now());
             userMovie.setValoration(valoration);
             userMovieService.saveUserMovie(userMovie);
 
