@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.Table;
+import javax.validation.constraints.Future;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
@@ -37,7 +38,7 @@ public class Movie {
 	private String description;
 
 	@NotNull(message = "Debe ingresar una fecha")
-	@Past(message = "Ingrese una fecha posible")
+	@Future(message = "Ingrese una fecha posible")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate startingDate;
 
@@ -57,7 +58,7 @@ public class Movie {
 	@Min(value = 1, message = "La única sala disponible es la número 1")
 	@Max(value = 1, message = "La única sala disponible es la número 1")
 	@Column(nullable = false)
-	private String room;
+	private String room = "1";
 
 	private String firstShowTime;
 	private String secondShowTime;
