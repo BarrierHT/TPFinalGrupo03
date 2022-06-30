@@ -11,6 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.print.attribute.standard.MediaSize.NA;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 
 import org.springframework.stereotype.Component;
 
@@ -39,6 +41,8 @@ public class UserMovie {
 
     private Integer tickets = 0;
 
+    @Min(value = 1, message = "La valoracion minima es de 1")
+    @Max(value = 5, message = "La valoracion maxima es de 5")
     private Integer valoration;
 
     public UserMovie() {
