@@ -27,6 +27,14 @@
 
     </div>
 
+    <div th:if="${param.error}" class="alert alert-danger" role="alert">
+        Combinación inválida de Usuario y Contraseña
+    </div>
+
+    <div th:if="${param.logout}" class="alert alert-success" role="alert">
+        Se ha deslogueado correctamente
+    </div>
+
 	<div th:insert="/layouts/footer :: footer"></div>
 </body>
 

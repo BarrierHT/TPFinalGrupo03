@@ -29,22 +29,22 @@ public class Auth implements AuthenticationSuccessHandler{
         Collection<?extends GrantedAuthority> authorities = authentication.getAuthorities();
         
         for(GrantedAuthority grantedAuthority:authorities){
-            if(grantedAuthority.getAuthority().equals("CLIENT")){
-                user = true;
+            if(grantedAuthority.getAuthority().equals("ADMIN")){
+                admin = true;
                 break;        
             }else{
-                if(grantedAuthority.getAuthority().equals("ADMIN")){
-                    admin = true;
+                if(grantedAuthority.getAuthority().equals("CLIENT")){
+                    user = true;
                     break;
                 }
             }
         }
         
-        if(user){
-            redirectStrategy.sendRedirect(request, response, "/movies/show-movies");
+        if(admin){
+            redirectStrategy.sendRedirect(request, response, "/getUsers");
         }else{
-            if(admin){
-                redirectStrategy.sendRedirect(request, response, "/admin/edit-movies");
+            if(user){
+                redirectStrategy.sendRedirect(request, response, "/getMovies");
             }
         }
     }
