@@ -3,6 +3,7 @@
 
 <head>
   <meta charset="UTF-8" />
+  <link rel="icon" href="/img/logo_P.png">
   <title>TPFinal</title>
   <link th:href="@{/css/styles.css}" rel="stylesheet" type="text/css" />
   <link th:href="@{/webjars/bootstrap/5.0.0/css/bootstrap.min.css}" rel="stylesheet" type="text/css" />
@@ -71,24 +72,24 @@
 
             <div class="cont-car">
               <form action="/valoration-movie" method="POST">
-                <input type="hidden" th:value="${movie.id}" name="movieId" />
+              	<input type="hidden" th:value="${movie.id}" name="movieId" />
                 <input type="hidden" th:value="${userId}" name="userId" />
                 <input type="number" name="valoration" placeholder="Digite su valoracion">
                 <button type="submit" class="btn btn-primary">
                   Valorar pelicula
                 </button>
-              </form>
+             </form>
             </div>
 
             <div class="cont-car">
               <form action="/comment-movie" method="POST">
-                <input type="hidden" th:value="${movie.id}" name="movieId" />
+              	<input type="hidden" th:value="${movie.id}" name="movieId" />
                 <input type="hidden" th:value="${userId}" name="userId" />
                 <input type="text" name="comment" placeholder="Digite su Comentario">
                 <button type="submit" class="btn btn-primary">
                   Comentar pelicula
                 </button>
-              </form>
+               </form>
             </div>
 
           </div>

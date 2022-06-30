@@ -98,9 +98,8 @@ public class MovieController {
         return sendMovieFound;
     }
 
-    @PostMapping("/editMovie")
-    public String editMovie(@Valid @ModelAttribute("movie") Movie incomingMovie, BindingResult result,
-            Model model) {
+    @PostMapping(value = "/editMovie",  consumes = "multipart/form-data")
+    public String editMovie(@Valid @ModelAttribute("movie") Movie incomingMovie, BindingResult result, Model model, @RequestParam("file") MultipartFile file) {
         LOGGER.info("Editing Movie");
         if (result.hasErrors()) {
             LOGGER.fatal("Validation error");
@@ -111,6 +110,9 @@ public class MovieController {
         }
 
         try {
+        	byte[] content = file.getBytes();
+			String base64 = Base64.getEncoder().encodeToString(content);
+			incomingMovie.setCover(base64);
             movieService.editMovie(incomingMovie);
         } catch (Exception e) {
             LOGGER.error("The movie can't be edited");

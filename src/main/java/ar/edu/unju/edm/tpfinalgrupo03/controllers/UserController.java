@@ -46,6 +46,7 @@ public class UserController {
 			model.addAttribute("errors", true);
 			return "/auth/signup";
 		}
+		System.out.println("save user");
 		model.addAttribute("editing", false);
 		return "redirect:/index";
 	}
