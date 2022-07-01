@@ -29,9 +29,9 @@ public class User {
     @Max(value = 99999999, message = "El DNI debe ser menor que 99.999.999")
     @Column(unique = true, nullable = false)
     private Integer idCard;
-    @NotEmpty(message = "Campo Obligatorio")
-    @Size(min = 4, max = 12, message = "La contraseña debe tener entre 4 y 12 caracteres")
-    @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-zA-Z]).{4,12}$", message = "Siga el formato indicado")
+    //@NotEmpty(message = "Campo Obligatorio")
+    //@Size(min = 4, max = 12, message = "La contraseña debe tener entre 4 y 12 caracteres")
+    //@Pattern(regexp = "^(?=.*[0-9])(?=.*[a-zA-Z]).{4,12}$", message = "Siga el formato indicado")
     private String password;
     private String role;
     @NotEmpty(message = "Campo Obligatorio")

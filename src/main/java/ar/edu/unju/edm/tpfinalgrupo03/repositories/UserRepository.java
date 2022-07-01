@@ -10,11 +10,6 @@ import ar.edu.unju.edm.tpfinalgrupo03.models.User;
 @Repository
 public interface UserRepository extends CrudRepository<User, Integer> {
 
-    /*
-    Optional<User> findById(long parseLong);
-
-    public List<User> findById(){    
-    }
-     */
+    public Optional<User> findByIdCard(Integer idCard);
 
 }

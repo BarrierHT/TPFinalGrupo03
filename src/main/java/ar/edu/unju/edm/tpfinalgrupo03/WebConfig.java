@@ -26,7 +26,7 @@ public class WebConfig extends WebSecurityConfigurerAdapter{
 		http.csrf().disable()
 			.authorizeRequests()
 				.antMatchers(resources).permitAll()
-				.antMatchers("/", "/index").permitAll()
+				.antMatchers("/", "/index","/signup","/saveUser").permitAll()
 				.anyRequest().authenticated()
 				.and()
 			.formLogin()
@@ -34,7 +34,7 @@ public class WebConfig extends WebSecurityConfigurerAdapter{
 				.permitAll()
 				.successHandler(authenticacion)
 				.failureUrl("/login?error=true")
-				.usernameParameter("dni")
+				.usernameParameter("idCard")
 				.passwordParameter("password")				
 				.and()
 			.logout()
@@ -53,9 +53,8 @@ public class WebConfig extends WebSecurityConfigurerAdapter{
 	LoginService userDetailsService;
 
     @Autowired
-	protected void globalConfig(AuthenticationManagerBuilder auth)
+	public void globalConfig(AuthenticationManagerBuilder auth)
 			throws Exception {
-            System.out.println("*** User loged ***");
             auth.userDetailsService(userDetailsService);
 	}
 }

@@ -23,11 +23,11 @@ public class IUserServiceImp implements IUserService {
     @Override
     public void saveUser(User incomingUser) {
 
-        //Todo (fix the password validation)
+        incomingUser.setRole("ADMIN");  //Change it for testing
 
-        //String password = incomingUser.getPassword();
-        //BCryptPasswordEncoder coder = new BCryptPasswordEncoder(4);
-        //incomingUser.setPassword(coder.encode(password));
+        String password = incomingUser.getPassword();
+        BCryptPasswordEncoder coder = new BCryptPasswordEncoder(4);
+        incomingUser.setPassword(coder.encode(password));
 
         userRepository.save(incomingUser);
     }

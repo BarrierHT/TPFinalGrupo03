@@ -4,7 +4,18 @@
 <body>
     <div id="header" th:fragment="header" class="d-flex justify-content-center">
         <header id="main--header" class="color">Sitio de Peliculas - Grupo 3</header>
+
+        <ul class="navbar-nav mt-2 mt-lg-0">
+        <li class="nav-item">
+        <a class="btn btn-outline-dark" href="#" th:href="@{/logout}">
+        <span></span>
+        <span> Salir </span> <span class="float-right">
+        <i class="fas fa-sign-out-alt"></i></span></a>
+        </ul>
+        </li>
+
     </div>
+
 </body>
 
 </html>
