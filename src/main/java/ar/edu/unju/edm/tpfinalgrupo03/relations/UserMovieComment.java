@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 import org.springframework.stereotype.Component;
@@ -35,7 +36,9 @@ public class UserMovieComment {
     @JoinColumn(name = "movieId")
     private Movie movie;
 
-    @Size(max = 150, message = "El comentario es demasiado largo")
+    @NotBlank(message = "Ingrese un comentario")
+    @Size(min = 5, max = 150, message = "Error al comentar")
+
     private String comment;
 
     private LocalDate createdAt;

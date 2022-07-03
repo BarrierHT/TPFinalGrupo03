@@ -13,6 +13,9 @@ import javax.persistence.Table;
 import javax.print.attribute.standard.MediaSize.NA;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import org.springframework.stereotype.Component;
 
@@ -41,9 +44,10 @@ public class UserMovie {
 
     private Integer tickets = 0;
 
+    @NotNull(message = "Ingrese una valoracion")
     @Min(value = 1, message = "La valoracion minima es de 1")
     @Max(value = 5, message = "La valoracion maxima es de 5")
-    private Integer valoration;
+    private Integer valoration = 0;
 
     public UserMovie() {
     }

@@ -16,7 +16,7 @@
 
 
   <div class="container">
-
+  
     <section>
 
       <div class="cont-car" th:each="movie:${MovieList}">
@@ -53,10 +53,57 @@
             <li class="list-group-item bg-dark">
               <div class="text-muted text-center" th:text="'Sala: ' + ${movie.room}"></div>
             </li>
+            <!-- 
             <div class="card-footer text-muted" th:text="'Tickets en stock: ' + ${movie.ticketStock}"></div>
+             -->
             <li class="list-group-item bg-dark">
-              <div class="text-muted text-center" th:text="'Tickets en stock: ' + ${movie.ticketStock}"></div>
+            	<div class="text-muted text-center" th:text="'Tickets en stock: ' + ${movie.ticketStock}"></div>
             </li>
+            <li class="list-group-item bg-dark">
+              	<div class="cont-car">
+		           	
+		           	<form class="row g-2" th:action="@{/valoration-movie}" method="POST">
+			    	   	<input type="hidden" th:value="${movie.id}" name="movieId" />
+			            <input type="hidden" th:value="${userId}" name="userId" />
+			            <div class="col-auto">
+			            	<input class="form-control form-control-sm" type="number" name="valoration" placeholder="Digite su valoracion" value="0">
+			            	<!-- 
+			            	<input type="range" class="form-range" min="1" max="5" step="1" name="valoration">
+			            	 -->
+			            	<!-- 
+			            	<div class="alert alert-danger" th:if="${#fields.hasErrors('valoration')}" th:errors="*{valoration}"></div>
+			            	 --> 
+			            </div>
+			            <div class="col-auto">
+				            <button type="submit" class="btn btn-primary btn-sm">
+				            	Valorar pelicula
+				            </button>
+			            </div>
+			    	</form>
+			    	
+				</div>
+            </li>
+            <li class="list-group-item bg-dark">
+            	<div class="cont-car">
+              		<form class="row g-2" th:action="@{/comment-movie}" method="POST">
+              			<!-- 
+              			<div class="alert alert-info" role="alert" th:if="${errors}">
+							Error al comentar pelicula
+						</div>
+              			 -->
+              			<input type="hidden" th:value="${movie.id}" name="movieId" />
+			            <input type="hidden" th:value="${userId}" name="userId" />
+			            <div class="col-auto">
+			            	<input class="form-control form-control-sm" type="text" name="comment" placeholder="Digite su Comentario">
+			            </div>
+			            <div class="col-auto">
+				            <button type="submit" class="btn btn-primary btn-sm">
+				            	Comentar pelicula
+							</button>
+			        	</div>
+			    	</form>
+            	</div>
+              </li>
           </ul>
 
           <div class="card-footer text-muted">
@@ -97,6 +144,7 @@
               <!-- <a class="btn btn-primary" th:href="/getComments">Ver Comentarios</a> -->
               <a class="btn btn-primary" th:href="'/getComments/' + ${movie.id}">Ver Comentarios</a>
             </div>
+
 
           </div>
 
@@ -149,6 +197,8 @@
 
   <div th:insert="/layouts/footer :: footer"></div>
 
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    
 </body>
 
 </html>

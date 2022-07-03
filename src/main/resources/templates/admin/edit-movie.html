@@ -11,115 +11,111 @@
 </head>
 
 <body>
+	
 	<div th:insert="/layouts/header :: header"></div>
 	<div th:insert="/layouts/navegation :: navegation"></div>
-	
 
 	<div class="container">
-		
 		<section>
 			<div class="main--form">
 				<!-- <article class="col-6 col-xl-10">Cuerpo de la pagina</article> -->
 				<form th:object="${movie}" method="POST" th:action="${editing}? @{/editMovie} : @{/saveMovie}" enctype="multipart/form-data">
-
-					<div class="col-sm-10 alert alert-warning" th:if="${errors}">Error al guardar la película</div>
-
-					<form>
-						<div class="mb-3">
-							<label for="input--title" class="col col-form-label">
-								Titulo
-							</label>
-							<div class="col-sm-10">
-								<input type="text" class="form-control" id="input--title"
-									placeholder="Titulo de la película" name="title" th:field="*{title}" />
-								<div class="alert alert-danger" th:if="${#fields.hasErrors('title')}"
-									th:errors="*{title}"></div>
-							</div>
-
-							<div class="mb-3">
-								<label for="input--movieType" class="col col-form-label">
-									Tipo de Película
-								</label>
-								<div class="col-sm-10">
-									<input type="text" class="form-control" id="input--movieType"
-										placeholder="Tipo de Película" name="movieType" th:field="*{movieType}" />
-									<div class="alert alert-danger" th:if="${#fields.hasErrors('movieType')}"
-										th:errors="*{movieType}"></div>
-								</div>
-
-								<div class="mb-3">
-									<label for="input--description" class="col col-form-label">Descripcion</label>
-									<div class="col-sm-10">
-										<textarea class="form-control" placeholder="Descripcion de la película"
-											id="input--description" style="height: 100px" name="description"
-											th:field="*{description}"></textarea>
-										<div class="alert alert-danger" th:if="${#fields.hasErrors('description')}"
-											th:errors="*{description}"></div>
-									</div>
-
-									<div class="mb-3">
-										<label for="input--startingDate" class="col col-form-label">Fecha de inicio
-										</label>
-										<input type="date" class="form-control" id="input--startingDate"
-											placeholder="Starting Date" name="startingDate"
-											th:field="*{startingDate}" />
-										<div class="alert alert-danger" th:if="${#fields.hasErrors('startingDate')}"
-											th:errors="*{startingDate}"></div>
-									</div>
-
-									<div class="mb-3">
-										<label for="input--saleDuration" class="col col-form-label">Cantidad de semanas
-											a la venta</label>
-										<input type="number" class="form-control" id="input--saleDuration"
-											placeholder="Sale Duration" name="saleDuration"
-											th:field="*{saleDuration}" />
-										<div class="alert alert-danger" th:if="${#fields.hasErrors('saleDuration')}"
-											th:errors="*{saleDuration}"></div>
-									</div>
-
-									<div class="mb-3">
-										<label for="input--room" class="col col-form-label">
-											Sala
-										</label>
-										<div class="col-sm-10">
-											<input type="number" class="form-control" id="input--room"
-												placeholder="Sala numero 1" name="room" th:field="*{room}" th:value="1" />
-											<div class="alert alert-danger" th:if="${#fields.hasErrors('room')}"
-												th:errors="*{room}"></div>
-										</div>
-
-										<div class="mb-3">
-											<label for="file" class="col col-form-label">Portada (file)</label>
-											<div class="col-sm-10">
-												<!--
-												<input class="form-control" type="text" id="input--cover" name="cover"
-													placeholder="Copiar url de la imagen" th:field="*{cover}" />
-												-->
-												<input type="file" name="file" class="form-control-file" id="file"
-														accept="image/x-png,image/gif,image/jpeg,image/png,image/jpeg"
-														onchange="loadFile(event)"> <img id="output"
-														style="padding-top: 2px; width: 146px;" />
-												<div class="alert alert-danger" th:if="${#fields.hasErrors('cover')}"
-													th:errors="*{cover}"></div>
-											</div>
-
-					</form>
-
+					<div class="alert alert-info alert-dismissible fade show col-8 cont-form" role="alert" th:if="${errors}">
+						Error al guardar la pelicula
+						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+					</div>
+					<div class="col-8 cont-form">
+						<label for="input--title" class="col col-form-label">
+							Titulo
+						</label>
+						<input type="text" class="form-control" id="input--title"
+							placeholder="Titulo de la película" name="title" th:field="*{title}" />
+						<div class="alert alert-danger" th:if="${#fields.hasErrors('title')}"
+							th:errors="*{title}"></div>
+					</div>
+					<div class="col-8 cont-form">
+						<label for="input--movieType" class="col col-form-label">
+							Tipo de Película
+						</label>
+						<input type="text" class="form-control" id="input--movieType"
+							placeholder="Tipo de Película" name="movieType" th:field="*{movieType}" />
+						<div class="alert alert-danger" th:if="${#fields.hasErrors('movieType')}"
+							th:errors="*{movieType}"></div>
+					</div>
+					<div class="col-8 cont-form">
+						<label for="input--description" class="col col-form-label">
+							Descripcion
+						</label>
+						<textarea class="form-control" placeholder="Descripcion de la película"
+							id="input--description" style="height: 100px" name="description"
+							th:field="*{description}"></textarea>
+						<div class="alert alert-danger" th:if="${#fields.hasErrors('description')}"
+							th:errors="*{description}"></div>
+					</div>
+					<div class="col-8 cont-form">
+						<label for="input--startingDate" class="col col-form-label">
+							Fecha de inicio
+						</label>
+						<input type="date" class="form-control" id="input--startingDate"
+							placeholder="Starting Date" name="startingDate"
+							th:field="*{startingDate}" />
+						<div class="alert alert-danger" th:if="${#fields.hasErrors('startingDate')}"
+							th:errors="*{startingDate}"></div>
+					</div>
+					<div class="col-8 cont-form">
+						<label for="input--saleDuration" class="col col-form-label">
+							Cantidad de semanas a la venta
+						</label>
+						<input type="number" class="form-control" id="input--saleDuration"
+							placeholder="Duracion" name="saleDuration"
+							th:field="*{saleDuration}" />
+						<div class="alert alert-danger" th:if="${#fields.hasErrors('saleDuration')}"
+							th:errors="*{saleDuration}"></div>
+					</div>
+					<div class="col-8 cont-form">
+						<label for="input--room" class="col col-form-label">
+							Sala
+						</label>
+						<input type="number" class="form-control" id="input--room"
+							placeholder="Sala numero 1" name="room" th:field="*{room}" th:value="1" disabled/>
+						<div class="alert alert-danger" th:if="${#fields.hasErrors('room')}"
+							th:errors="*{room}"></div>
+					</div>
+					<div class="col-8 cont-form">
+						<label for="file" class="col col-form-label">Portada (file)</label>
+						<!--
+						<input class="form-control" type="text" id="input--cover" name="cover"
+						placeholder="Copiar url de la imagen" th:field="*{cover}" />
+						-->
+						<input type="file" name="file" class="form-control" id="file"
+							accept="image/x-png,image/gif,image/jpeg,image/png,image/jpeg"
+							onchange="loadFile(event)">
+						<div class="cont-img  text-center">
+							<img id="output" style="padding: 15px 10px; width: 146px;" />
+						</div>
+						<div class="alert alert-danger" th:if="${#fields.hasErrors('cover')}"
+							th:errors="*{cover}"></div>
+					</div>
 					<div>
 						<input type="hidden" th:field="*{id}" name="id" />
 					</div>
-
-					<button type="submit" class="btn btn-primary"
-						th:text="${editing}? 'Editar Película' : 'Agregar Película'">
-					</button>
+					<div class="cont-form text-center">
+						<button type="submit" class="btn btn-primary btn-e"
+							th:text="${editing}? 'Editar Película' : 'Agregar Película'">
+						</button>
+					</div>
 				</form>
+				<br>
 			</div>
 			<aside></aside>
 		</section>
-
 	</div>
 
 	<div th:insert="/layouts/footer :: footer"></div>
+	
+	<script src="/js/upload-cover.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+	
 </body>
 
 </html>
