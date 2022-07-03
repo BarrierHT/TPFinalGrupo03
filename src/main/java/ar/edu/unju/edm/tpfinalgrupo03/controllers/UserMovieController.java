@@ -171,12 +171,24 @@ public class UserMovieController {
             userMovieComment.setUser(user);
 
             userMovieComment.setComment(comment);
+
+            userMovieComment.setCreatedAt(LocalDate.now());
             userMovieCommentService.saveUserMovieComment(userMovieComment);
 
         } catch (Exception e) {
             LOGGER.error("The user can't comment the movie");
 
         }
+        return "redirect:/getMovies";
+    }
+
+    @PostMapping("/delete-comment")
+    public String deleteComment(@RequestParam Map<String, String> body) {
+        Integer commentId = Integer.parseInt(body.get("commentId"));
+        // Integer userId = Integer.parseInt(body.get("userId"));
+        // String comment = body.get("comment");
+
+        LOGGER.info("id: " + commentId);
         return "redirect:/getMovies";
     }
 }

@@ -15,35 +15,35 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import org.springframework.stereotype.Component;
 
 @Component
-public class Auth implements AuthenticationSuccessHandler{
+public class Auth implements AuthenticationSuccessHandler {
 
     private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
             Authentication authentication) throws IOException, ServletException {
-        
+
         Boolean user = false;
         Boolean admin = false;
 
-        Collection<?extends GrantedAuthority> authorities = authentication.getAuthorities();
-        
-        for(GrantedAuthority grantedAuthority:authorities){
-            if(grantedAuthority.getAuthority().equals("ADMIN")){
-                admin = true;
-                break;        
-            }else{
-                if(grantedAuthority.getAuthority().equals("CLIENT")){
-                    user = true;
+        Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
+
+        for (GrantedAuthority grantedAuthority : authorities) {
+            if (grantedAuthority.getAuthority().equals("CLIENT")) {
+                user = true;
+                break;
+            } else {
+                if (grantedAuthority.getAuthority().equals("ADMIN")) {
+                    admin = true;
                     break;
                 }
             }
         }
-        
-        if(admin){
+
+        if (admin) {
             redirectStrategy.sendRedirect(request, response, "/getUsers");
-        }else{
-            if(user){
+        } else {
+            if (user) {
                 redirectStrategy.sendRedirect(request, response, "/getMovies");
             }
         }

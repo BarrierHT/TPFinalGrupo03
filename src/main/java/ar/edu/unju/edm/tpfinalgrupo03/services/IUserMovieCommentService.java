@@ -14,6 +14,8 @@ public interface IUserMovieCommentService {
 
     public List<UserMovieComment> getUserMovieComments();
 
+    public List<UserMovieComment> getUserMovieCommentsByMovie(Integer id);
+
     public void editUserMovieComment(UserMovieComment userMovieComment);
 
     public void deleteUserMovieComment(Integer id) throws Exception;
