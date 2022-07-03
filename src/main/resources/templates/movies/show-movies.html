@@ -108,13 +108,43 @@
 
           <div class="card-footer text-muted">
 
-            <div class="cont-car">
+            <div class="cont-car" th:if="${userRole == 'ADMIN'}">
               <form action="/lockMovie" method="POST">
                 <input type="hidden" th:value="${movie.id}" name="id" />
                 <button type="submit" class="btn btn-danger btn-e">Bloquear Película</button>
               </form>
               <a href="#" class="btn btn-warning btn-e" th:href="@{'/editMovie/'+ ${movie.id}}">Editar</a>
             </div>
+
+
+            <div class="cont-car">
+              <form action="/valoration-movie" method="POST">
+                <input type="hidden" th:value="${movie.id}" name="movieId" />
+                <input type="hidden" th:value="${userId}" name="userId" />
+                <input type="number" name="valoration" placeholder="Digite su valoracion">
+                <button type="submit" class="btn btn-primary">
+                  Valorar pelicula
+                </button>
+              </form>
+            </div>
+
+            <div class="cont-car">
+              <form action="/comment-movie" method="POST">
+                <input type="hidden" th:value="${movie.id}" name="movieId" />
+                <input type="hidden" th:value="${userId}" name="userId" />
+                <input type="text" name="comment" placeholder="Digite su Comentario">
+                <button type="submit" class="btn btn-primary">
+                  Comentar pelicula
+                </button>
+              </form>
+            </div>
+
+
+            <div class="text-center">
+              <!-- <a class="btn btn-primary" th:href="/getComments">Ver Comentarios</a> -->
+              <a class="btn btn-primary" th:href="'/getComments/' + ${movie.id}">Ver Comentarios</a>
+            </div>
+
 
           </div>
 

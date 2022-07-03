@@ -21,14 +21,14 @@
             </div>
 
 
-            <div class="main--menu text-center">
+            <div class="main--menu text-center" th:if="${userRole}">
                 <h1>Editar usuario actual</h1>
                 <a href="#" class="btn btn-warning" th:href="@{'/editUser/'+ ${userId}}">
                     Editar
                 </a>
             </div>
 
-            <div class="main--menu text-center">
+            <div class="main--menu text-center" th:if="${userRole}">
                 <h1>Registro de Peliculas</h1>
 
                 <div class="cont-car" style="color: #fff;" th:each="userMovie:${UserMovieList}">

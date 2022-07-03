@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="/img/logo_P.png">
+    <title>TPFinal</title>
+    <link th:href="@{/css/styles.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/webjars/bootstrap/5.0.0/css/bootstrap.min.css}" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <div th:insert="/layouts/header :: header"></div>
+    <div th:insert="/layouts/navegation :: navegation"></div>
+
+
+    <div class="container">
+
+        <section>
+            <div class="cont-car" style="color: #fff;" th:each="comment:${CommentList}">
+                <div class="card-header" th:text="'Comentario: ' + ${comment.comment}"></div>
+                <div class="card-header" th:text="'Titulo de la pelicula: ' + ${comment.movie.title}"></div>
+                <div class="card-header" th:text="'Nombre del usuario: ' + ${comment.user.name}"></div>
+                <div class="card-header" th:text="'Fecha: ' + ${comment.createdAt}"></div>
+
+                <div class="card-header" th:if="${userRole == 'ADMIN'}">
+                    <form action="/delete-comment" method="POST">
+                        <input type="hidden" th:value="${comment.id}" name="commentId" />
+                        <button type="submit" class="btn btn-danger btn-e">Borrar Comentario</button>
+                    </form>
+                </div>
+
+                <hr>
+            </div>
+        </section>
+
+    </div>
+
+
+    <div th:insert="/layouts/footer :: footer"></div>
+</body>
+
+</html>

@@ -1,5 +1,7 @@
 package ar.edu.unju.edm.tpfinalgrupo03.controllers;
 
+import java.security.Principal;
+
 import javax.validation.Valid;
 
 import org.apache.commons.logging.Log;
@@ -16,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import ar.edu.unju.edm.tpfinalgrupo03.models.User;
 import ar.edu.unju.edm.tpfinalgrupo03.services.IUserService;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class UserController {
@@ -24,6 +27,9 @@ public class UserController {
 
 	@Autowired
 	IUserService userService;
+
+	@Autowired
+	MVCController mvcController;
 
 	@PostMapping("/saveUser")
 	public String saveUser(@Valid @ModelAttribute("user") User incomingUser, BindingResult result, Model model) {
@@ -52,23 +58,45 @@ public class UserController {
 	}
 
 	@GetMapping("/getUsers")
-	public String getUsers(Model model) {
+	public String getUsers(Model model, Principal principal) {
+
+		User currentUser = new User();
+
+		try {
+
+			currentUser = mvcController.getCurrentUser(principal);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 		model.addAttribute("UserList", userService.getUsers());
+		if (currentUser.getId() != null) {
+			model.addAttribute("userRole", currentUser.getRole());
+		}
+
 		return "/admin/getUsers";
 	}
 
 	@GetMapping("/editUser/{id}")
-	public ModelAndView editUser(Model model, @PathVariable Integer id) {
+	public ModelAndView editUser(Model model, @PathVariable Integer id, Principal principal) {
 		LOGGER.info("ID: " + id);
 		User userFound = new User();
+		User currentUser = new User();
+
 		try {
 			userFound = userService.getUser(id);
+			currentUser = mvcController.getCurrentUser(principal);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+
 		ModelAndView sendFoundUser = new ModelAndView("/auth/signup");
 		sendFoundUser.addObject("user", userFound);
 		sendFoundUser.addObject("editing", true);
+
+		if (currentUser.getId() != null) {
+			sendFoundUser.addObject("userRole", currentUser.getRole());
+		}
+
 		return sendFoundUser;
 	}
 
@@ -112,4 +140,5 @@ public class UserController {
 		}
 		return "redirect:/index";
 	}
+
 }

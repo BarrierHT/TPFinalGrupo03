@@ -23,7 +23,7 @@ public class IUserServiceImp implements IUserService {
     @Override
     public void saveUser(User incomingUser) {
 
-        incomingUser.setRole("ADMIN");  //Change it for testing
+        // incomingUser.setRole("ADMIN"); //Change it for testing
 
         String password = incomingUser.getPassword();
         BCryptPasswordEncoder coder = new BCryptPasswordEncoder(4);
@@ -80,7 +80,7 @@ public class IUserServiceImp implements IUserService {
     public User getUserByIdCard(Integer idCard) throws Exception {
 
         User userFound = new User();
-        userFound = userRepository.findById(idCard).orElseThrow(() -> new Exception("User not found"));
+        userFound = userRepository.findByIdCard(idCard).orElseThrow(() -> new Exception("User not found"));
         return userFound;
     }
 }
