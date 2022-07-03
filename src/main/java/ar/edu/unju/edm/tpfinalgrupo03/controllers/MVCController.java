@@ -20,7 +20,7 @@ public class MVCController {
     IUserService userService;
 
     public User getCurrentUser(Principal principal) {
-        LOGGER.info(principal.getName());
+        // LOGGER.info(principal.getName());
 
         User user = new User();
 

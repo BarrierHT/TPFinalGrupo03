@@ -44,10 +44,10 @@ public class UserMovie {
 
     private Integer tickets = 0;
 
-    @NotNull(message = "Ingrese una valoracion")
+    // @NotNull(message = "Ingrese una valoracion")
     @Min(value = 1, message = "La valoracion minima es de 1")
     @Max(value = 5, message = "La valoracion maxima es de 5")
-    private Integer valoration = 0;
+    private Integer valoration = null;
 
     public UserMovie() {
     }
