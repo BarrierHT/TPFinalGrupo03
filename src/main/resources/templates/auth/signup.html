@@ -27,10 +27,12 @@
 					<div class="alert alert-warning" th:if="${editing == false}"
 						th:text="${errorForm}? 'Hay algun error con el email o DNI (Comprueba que no esten registrados antes)' : 'Comprueba que no se haya registrado antes el correo o DNI'"
 					></div>
-					<div class="alert alert-warning" th:if="${errors}">
-						Error al guardar usuario
+					-->
+					<div class="alert alert-info alert-dismissible fade show" role="alert" th:if="${errors}">
+						Error al generar usuario
+						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 					</div>
-					 -->
+					 
 						<!-- ToDo cambiar el color de la clase -->
 					<div class="form-group col-auto">
 						<label for="input--name">Nombre</label>
@@ -101,6 +103,9 @@
 	</div>
 
 	<div th:insert="/layouts/footer :: footer"></div>
+
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    
 </body>
 
 </html>

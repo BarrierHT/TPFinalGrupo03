@@ -4,12 +4,18 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
+import javax.validation.Valid;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import ar.edu.unju.edm.tpfinalgrupo03.models.Movie;
 import ar.edu.unju.edm.tpfinalgrupo03.models.User;
@@ -106,14 +112,21 @@ public class UserMovieController {
     }
 
     @PostMapping("/valoration-movie")
-    public String valorateMovie(@RequestParam Map<String, String> body) throws Exception {
+    public String valorateMovie(@RequestParam Map<String, String> body,
+    		@Valid UserMovie incomingValoration, BindingResult resulr, Model model) throws Exception {
         Integer movieId = Integer.parseInt(body.get("movieId"));
         Integer userId = Integer.parseInt(body.get("userId"));
         Integer valoration = Integer.parseInt(body.get("valoration"));
 
         LOGGER.info("movieId: " + movieId);
         LOGGER.info("userId: " + userId);
-
+        
+        if(resulr.hasErrors()) {
+        	LOGGER.fatal("Validation error");
+			System.out.println(incomingValoration.getValoration());
+			return "redirect:/getMovies";
+        }
+        
         try {
             List<UserMovie> listUserMovies = userMovieService.getUserMovies();
             for (int i = 0; i < listUserMovies.size(); i++) {
@@ -147,20 +160,26 @@ public class UserMovieController {
 
         } catch (Exception e) {
             LOGGER.error("The user can't valorate the movie");
-
         }
         return "redirect:/getMovies";
     }
 
     @PostMapping("/comment-movie")
-    public String commentMovie(@RequestParam Map<String, String> body) {
+    public String commentMovie(@RequestParam Map<String, String> body, 
+    		@Valid UserMovieComment incomingComment, BindingResult resulr, Model model) {
         Integer movieId = Integer.parseInt(body.get("movieId"));
         Integer userId = Integer.parseInt(body.get("userId"));
         String comment = body.get("comment");
 
         LOGGER.info("id: " + movieId);
         LOGGER.info("id: " + userId);
-
+        
+        if(resulr.hasErrors()) {
+        	LOGGER.fatal("Validation error");
+			System.out.println(incomingComment.getComment());
+			return "redirect:/getMovies";
+        }
+        
         try {
             UserMovieComment userMovieComment = new UserMovieComment();
 
@@ -175,7 +194,7 @@ public class UserMovieController {
 
         } catch (Exception e) {
             LOGGER.error("The user can't comment the movie");
-
+            return "redirect:/getMovies";
         }
         return "redirect:/getMovies";
     }
