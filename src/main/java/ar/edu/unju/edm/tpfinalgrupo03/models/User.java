@@ -29,10 +29,11 @@ public class User {
     @Max(value = 99999999, message = "El DNI debe ser menor que 99.999.999")
     @Column(unique = true, nullable = false)
     private Integer idCard;
+    
     @NotEmpty(message = "Campo Obligatorio")
-    // @Size(min = 4, max = 12, message = "La contraseña debe tener entre 4 y 12
-    // caracteres")
-    @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-zA-Z]).{4,12}$", message = "Siga el formato indicado")
+    @Size(min = 4, message = "La contraseña debe tener mas de 4 caracteres")
+    @Pattern(regexp = "^(?=.*?[a-zA-Z])(?=.*?[0-9]).{4,}$", message = "Siga el formato indicado") //(?=.*?[#?!@$%^&*-]) Formato para simbolos de pattern
+
     private String password;
     private String role = "CLIENT";
     @NotEmpty(message = "Campo Obligatorio")

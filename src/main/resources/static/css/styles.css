@@ -37,6 +37,10 @@ body{
 	background-color: var(--fondo);
 }
 
+section{
+  padding-top: 5px;
+}
+
 .main--form {
   color: var(--letra);
   text-shadow: 1px 1px black;
@@ -70,4 +74,84 @@ img{
 .cont-form{
   margin-left: auto;
   margin-right: auto;
+}
+
+.main-section{
+    margin: 0 auto;
+    margin-top: 5%;
+    padding: 0;
+}
+
+.modal-contentn{
+    padding: 0 20px;
+    box-shadow: 0px 0px 3px gray;
+    color: white;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    pointer-events: auto;
+    background-color: #24303c;
+    background-clip: padding-box;
+    border: 1px solid rgba(0,0,0,.2);
+    border-radius: 0.3rem;
+    outline: 0;
+}
+
+.controls {
+  width: 100%;
+  background: #24303c;
+  padding: 10px;
+  border-radius: 4px;
+  border: 1px solid #1f53c5;
+  font-family: inherit;
+  font-size: 18px;
+  color: white;
+}
+
+.col-12 h4 {
+  font-family: inherit;
+  font-size: 22px;
+  margin-bottom: 20px;
+  margin-top: 10px;
+}
+
+button{
+  width: 60%;
+  margin: 5px 0 25px;
+}
+
+.auxb{
+  margin-left: 2.5px;
+  margin-right: 2.5px;
+}
+
+.auxb button{
+  width: 100%;
+}
+
+.col-12 .botons {
+  width: 100%;
+  background: #1f53c5;
+  border: none;
+  padding: 12px;
+  color: white;
+  margin: 16px 0;
+  font-size: 16px;
+}
+
+.col-12 p {
+  height: 30px;
+  text-align: center;
+  font-size: 18px;
+  line-height: 40px;
+}
+
+.col-12 a {
+  text-decoration: none;
+}
+
+.col-12 a:hover {
+  color: white;
+  text-decoration: underline;
 }

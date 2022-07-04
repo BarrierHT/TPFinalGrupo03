@@ -10,6 +10,8 @@
 </head>
 
 <body>
+	
+	<!-- 
 	<div th:insert="/layouts/header :: header"></div>
 	<div th:insert="/layouts/navegation :: navegation"></div>
 		
@@ -18,7 +20,7 @@
 		<section>
 			<div class="main--form">
 				<form th:object="${user}" method="POST" th:action="${editing}? @{/editUser} : @{/saveUser}">
-					<!-- 
+	-->				<!-- 
 					<input type="hidden" class="form-control" th:if="${editing}" th:field="*{password}">
 					<input type="hidden" class="form-control" th:if="${editing}" th:field="*{idCard}">
 					<input type="hidden" class="form-control" th:if="${editing}" th:field="*{email}">
@@ -28,13 +30,13 @@
 						th:text="${errorForm}? 'Hay algun error con el email o DNI (Comprueba que no esten registrados antes)' : 'Comprueba que no se haya registrado antes el correo o DNI'"
 					></div>
 					-->
-					<div class="alert alert-info alert-dismissible fade show" role="alert" th:if="${errors}">
+	<!--				<div class="alert alert-info alert-dismissible fade show" role="alert" th:if="${errors}">
 						Error al generar usuario
 						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 					</div>
-					 
+	-->				 
 						<!-- ToDo cambiar el color de la clase -->
-					<div class="form-group col-auto">
+	<!--				<div class="form-group col-auto">
 						<label for="input--name">Nombre</label>
 						<input
 							type="text"
@@ -101,8 +103,63 @@
 			</section>
 		
 	</div>
+	 -->
+	
+	<div class="modal-dialog">
+     	<div class="col-sm-12 main-section">
+        	<div class="modal-contentn">
+            	<form class="col-12" th:object="${user}" method="POST" th:action="${editing}? @{/editUser} : @{/saveUser}">
+                    <div class="col-12">
+                    	<h4 th:text="${editing}? 'Editar' : 'Registrarse'"></h4>
+                	<div class="alert alert-info alert-dismissible fade show" role="alert" th:if="${errors}">
+						Error al generar usuario
+						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+					</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="input--name">Nombre</label>
+						<input type="text" class="controls" id="input--name" placeholder="Ingrese su nombre" name="name" th:field="*{name}"/>
+						<div class="alert alert-danger"	th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+					</div>
+					<br>
+                    <div class="form-group">
+                    	<label for="input--surname">Apellido</label>
+						<input type="text" class="controls" id="input--surname" placeholder="Ingrese su apellido" name="surname" th:field="*{surname}"/>
+						<div class="alert alert-danger" th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}"></div>
+                    </div>
+                    <br>
+                    <div class="form-group" th:if="${editing == false}">
+                    	<label for="exampleInputPassword1">Contraseña</label>
+						<input type="password"	class="controls" Id="exampleInputPassword1" placeholder="Ingrese su contraseña" name="password" th:field="*{password}"/>
+						<div class="alert alert-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+						<small class="formtext" th:if="${editing == false}">
+							La contraseña debe contener por lo menos una letra y un numero
+						</small>
+                    </div>
+                    <br>
+                    <div class="form-group" th:if="${editing == false}">
+                    	<label for="input--idCard">DNI</label>
+						<input type="number" class="controls" id="input--idCard" placeholder="Ingrese su DNI" name="idCard" th:field="*{idCard}"/>
+						<div class="alert alert-danger" th:if="${#fields.hasErrors('idCard')}" th:errors="*{idCard}"></div>
+                    </div>
+                    <br>
+                    <div>
+						<input type="hidden" th:field="*{id}" name="id" />
+					</div>
+                    <button type="submit" class="btn btn-primary botons" th:text="${editing}? 'Editar Usuario' : 'Agregar Usuario'">
+					</button>
+					<div class="col-12">
+                    	<p th:if="${editing == false}">¿Ya tienes una cuenta? <a href="/login">Inicia sesion</a></p>
+	            	    <p th:if="${editing == false}">Ir a <a href="/index">Menu Principal</a></p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
+	<!-- 
 	<div th:insert="/layouts/footer :: footer"></div>
+	 -->
 
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
     
