@@ -87,9 +87,11 @@ public class UserMovieController {
             Movie movie = movieService.getMovie(movieId);
             userMovie.setMovie(movie);
 
-            LOGGER.info(movie.getTitle());
+            LOGGER.info(movie.getTitle() + " " + movie.getTicketStock());
             if (movie.getTicketStock() > 0) {
                 movie.setTicketStock(movie.getTicketStock() - 1); // * Reduce ticket stock in 1
+                LOGGER.info(movie.getTitle() + " " + movie.getTicketStock());
+
                 movieService.saveMovie(movie);
 
                 User user = userService.getUser(userId);
@@ -99,8 +101,12 @@ public class UserMovieController {
 
                 userMovie.setCreatedAt(LocalDate.now());
                 userMovie.setTickets(1);
+                userMovie.setValoration(null);
 
                 userMovieService.saveUserMovie(userMovie);
+
+                LOGGER.info(user.getName());
+
             } else
                 LOGGER.fatal("The user can't buy tickets");
 
@@ -113,20 +119,23 @@ public class UserMovieController {
 
     @PostMapping("/valoration-movie")
     public String valorateMovie(@RequestParam Map<String, String> body,
+
     		@Valid UserMovie incomingValoration, BindingResult result, Model model) throws Exception {
+
         Integer movieId = Integer.parseInt(body.get("movieId"));
         Integer userId = Integer.parseInt(body.get("userId"));
         Integer valoration = Integer.parseInt(body.get("valoration"));
 
         LOGGER.info("movieId: " + movieId);
         LOGGER.info("userId: " + userId);
-        
+
         if(result.hasErrors()) {
         	LOGGER.fatal("Validation error");
         	System.out.println("the user '" + userId + "' can not valorate in movie '" + movieId + "' valoration: " + incomingValoration.getValoration());
         	return "redirect:/getMovies";
+
         }
-        
+
         try {
             List<UserMovie> listUserMovies = userMovieService.getUserMovies();
             for (int i = 0; i < listUserMovies.size(); i++) {
@@ -165,21 +174,27 @@ public class UserMovieController {
     }
 
     @PostMapping("/comment-movie")
+
+
     public String commentMovie(@RequestParam Map<String, String> body, 
     		@Valid UserMovieComment incomingComment, BindingResult result, Model model) throws Exception {
+
+
         Integer movieId = Integer.parseInt(body.get("movieId"));
         Integer userId = Integer.parseInt(body.get("userId"));
         String comment = body.get("comment");
 
         LOGGER.info("id: " + movieId);
         LOGGER.info("id: " + userId);
+
         
         if(result.hasErrors()) {
         	LOGGER.fatal("Validation error");
         	System.out.println("the user '" + userId + "' can not comment in movie '" + movieId + "' comment: " + incomingComment.getComment());
         	return "redirect:/getMovies";
+
         }
-        
+
         try {
             UserMovieComment userMovieComment = new UserMovieComment();
 
@@ -206,8 +221,13 @@ public class UserMovieController {
         Integer commentId = Integer.parseInt(body.get("commentId"));
         // Integer userId = Integer.parseInt(body.get("userId"));
         // String comment = body.get("comment");
-
         LOGGER.info("id: " + commentId);
+        try {
+            userMovieCommentService.deleteUserMovieComment(commentId);
+        } catch (Exception e) {
+            LOGGER.error("The comment cant be deleted");
+        }
+
         return "redirect:/getMovies";
     }
 }

@@ -64,6 +64,7 @@ public class IUserMovieCommentServiceImp implements IUserMovieCommentService {
 
     @Override
     public void deleteUserMovieComment(Integer id) throws Exception {
+        userMovieCommentRepository.deleteById(id);
     }
 
     @Override
