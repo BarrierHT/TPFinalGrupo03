@@ -6,32 +6,36 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import ar.edu.unju.edm.tpfinalgrupo03.models.User;
+import ar.edu.unju.edm.tpfinalgrupo03.repositories.UserRepository;
 import ar.edu.unju.edm.tpfinalgrupo03.services.IUserService;
 
 @SpringBootApplication
-public class Tpfinalgrupo03Application /*implements CommandLineRunner*/{
+public class Tpfinalgrupo03Application implements CommandLineRunner{
 
 	public static void main(String[] args) {
 		// System.out.println("a");
 		SpringApplication.run(Tpfinalgrupo03Application.class, args);
 	}
 	
-	/*@Autowired
+	@Autowired
 	User user;
+	
+	@Autowired
+    UserRepository userRepository;
 	
 	@Autowired
 	IUserService userService;
 	
 	@Override
 	public void run(String... args) throws Exception {
-		user.setId(0);
-		user.setIdCard(1234567);
-		user.setPassword("test123");
-		user.setName("test");
-		user.setSurname("123");
-		user.setStatus(true);
-		userService.saveUser(user);
-		System.out.println("save user");
-	}*/
+		/*
+		User changeUser = userRepository.findById(1).get();
+		System.out.println("user ID: " + changeUser.getId());
+		//changeUser.setRole("CLIENT");
+		//changeUser.setRole("ADMIN");
+		userRepository.save(changeUser);
+		System.out.println("change role user " + changeUser.getName() + " to: " + changeUser.getRole());
+		*/
+	}
 	
 }

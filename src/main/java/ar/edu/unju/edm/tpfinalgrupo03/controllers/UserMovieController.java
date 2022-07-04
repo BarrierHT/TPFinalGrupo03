@@ -113,7 +113,7 @@ public class UserMovieController {
 
     @PostMapping("/valoration-movie")
     public String valorateMovie(@RequestParam Map<String, String> body,
-    		@Valid UserMovie incomingValoration, BindingResult resulr, Model model) throws Exception {
+    		@Valid UserMovie incomingValoration, BindingResult result, Model model) throws Exception {
         Integer movieId = Integer.parseInt(body.get("movieId"));
         Integer userId = Integer.parseInt(body.get("userId"));
         Integer valoration = Integer.parseInt(body.get("valoration"));
@@ -121,10 +121,10 @@ public class UserMovieController {
         LOGGER.info("movieId: " + movieId);
         LOGGER.info("userId: " + userId);
         
-        if(resulr.hasErrors()) {
+        if(result.hasErrors()) {
         	LOGGER.fatal("Validation error");
-			System.out.println(incomingValoration.getValoration());
-			return "redirect:/getMovies";
+        	System.out.println("the user '" + userId + "' can not valorate in movie '" + movieId + "' valoration: " + incomingValoration.getValoration());
+        	return "redirect:/getMovies";
         }
         
         try {
@@ -166,7 +166,7 @@ public class UserMovieController {
 
     @PostMapping("/comment-movie")
     public String commentMovie(@RequestParam Map<String, String> body, 
-    		@Valid UserMovieComment incomingComment, BindingResult resulr, Model model) {
+    		@Valid UserMovieComment incomingComment, BindingResult result, Model model) throws Exception {
         Integer movieId = Integer.parseInt(body.get("movieId"));
         Integer userId = Integer.parseInt(body.get("userId"));
         String comment = body.get("comment");
@@ -174,10 +174,10 @@ public class UserMovieController {
         LOGGER.info("id: " + movieId);
         LOGGER.info("id: " + userId);
         
-        if(resulr.hasErrors()) {
+        if(result.hasErrors()) {
         	LOGGER.fatal("Validation error");
-			System.out.println(incomingComment.getComment());
-			return "redirect:/getMovies";
+        	System.out.println("the user '" + userId + "' can not comment in movie '" + movieId + "' comment: " + incomingComment.getComment());
+        	return "redirect:/getMovies";
         }
         
         try {

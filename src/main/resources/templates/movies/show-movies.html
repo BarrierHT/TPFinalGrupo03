@@ -23,7 +23,7 @@
         <div class="card col-mb-3 text-white bg-dark" style="max-width: 540px;">
           <div class="row g-0">
 
-            <div class="col-md-4 cont-img">
+            <div class="col-md-4 cont-img text-center">
               <img class="img-fluid rounded-start" th:src="${'data:image/png;base64,'+movie.cover}">
             </div>
 
@@ -62,7 +62,7 @@
             <li class="list-group-item bg-dark">
               <div class="cont-car">
 
-                <form class="row g-2" th:action="@{/valoration-movie}" method="POST">
+                <form class="row g-2" action="/valoration-movie" method="POST">
                   <input type="hidden" th:value="${movie.id}" name="movieId" />
                   <input type="hidden" th:value="${userId}" name="userId" />
                   <div class="col-auto">
@@ -75,18 +75,17 @@
 			            	<div class="alert alert-danger" th:if="${#fields.hasErrors('valoration')}" th:errors="*{valoration}"></div>
 			            	 -->
                   </div>
-                  <div class="col-auto">
+                  <div class="col-auto auxb">
                     <button type="submit" class="btn btn-primary btn-sm">
                       Valorar pelicula
                     </button>
                   </div>
                 </form>
-
               </div>
             </li>
             <li class="list-group-item bg-dark">
               <div class="cont-car">
-                <form class="row g-2" th:action="@{/comment-movie}" method="POST">
+                <form class="row g-2" action="/comment-movie" method="POST">
                   <!-- 
               			<div class="alert alert-info" role="alert" th:if="${errors}">
 							Error al comentar pelicula
@@ -98,7 +97,7 @@
                     <input class="form-control form-control-sm" type="text" name="comment"
                       placeholder="Digite su Comentario">
                   </div>
-                  <div class="col-auto">
+                  <div class="col-auto auxb">
                     <button type="submit" class="btn btn-primary btn-sm">
                       Comentar pelicula
                     </button>
@@ -111,17 +110,21 @@
           <div class="card-footer text-muted">
 
             <div class="cont-car" th:if="${userRole == 'ADMIN'}">
-              <form action="/lockMovie" method="POST">
-                <input type="hidden" th:value="${movie.id}" name="id" />
-                <button type="submit" class="btn btn-danger btn-e">Bloquear Película</button>
-              </form>
-              <a href="#" class="btn btn-warning btn-e" th:href="@{'/editMovie/'+ ${movie.id}}">Editar</a>
+            	<div class="col-auto auxb">
+              		<form action="/lockMovie" method="POST">
+                		<input type="hidden" th:value="${movie.id}" name="id" />
+                		<button type="submit" class="btn btn-danger btn-e">Bloquear Película</button>
+              		</form>
+             	</div>
+             	<div class="col-auto auxb">
+              		<a href="#" class="btn btn-warning btn-e" th:href="@{'/editMovie/'+ ${movie.id}}">Editar</a>
+              	</div>
             </div>
 
 
             <div class="text-center">
               <!-- <a class="btn btn-primary" th:href="/getComments">Ver Comentarios</a> -->
-              <a class="btn btn-primary" th:href="'/getComments/' + ${movie.id}">Ver Comentarios</a>
+              <a class="btn btn-primary btn-e" th:href="'/getComments/' + ${movie.id}">Ver Comentarios</a>
             </div>
 
 
